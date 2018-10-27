@@ -6,6 +6,7 @@ import com.gabchak.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,23 +34,36 @@ public class UserController {
 
     @RequestMapping(path = "/register", method = RequestMethod.GET)
     public ModelAndView register(ModelAndView vm) { //Spring вкладывает ViewModel
+
         vm.setViewName("register");
         vm.addObject("userDto", RegisterUserDto.empty());
         return vm;
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.POST)
-    public ModelAndView login(@Valid RegisterUserDto userDto, BindingResult bindingResult) {
-        ModelAndView vm = new ModelAndView();
+    public String register(@Valid RegisterUserDto userDto, BindingResult bindingResult) {
+
         if (bindingResult.hasErrors()) {
-            vm.setViewName("register");
-            vm.addObject("userDto", RegisterUserDto.empty());
-            return vm;
+            return "register";
         }
-        User user = new User(userDto);
-        userService.getUserByEmail(userDto.getEmail());
-        vm.setViewName("home");
-        vm.addObject("user", new User());
-        return vm;
+
+        User user = User.of(userDto);
+        userService.addUser(user);
+
+        return "home";
+    }
+
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public ModelAndView login(@ModelAttribute(value = "user") User user, ModelAndView vm) {
+        return userService.getUserByEmail(user.getEmail())
+                .map(r -> userService.verifyPassword(r, user))
+                .map(r -> {
+                    vm.setViewName("home");
+                    return vm;
+                })
+                .orElseGet(() -> {
+                    vm.setViewName("login");
+                    return vm;
+                });
     }
 }

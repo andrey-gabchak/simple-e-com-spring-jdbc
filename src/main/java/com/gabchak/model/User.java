@@ -24,8 +24,14 @@ public class User {
         this.token = token;
     }
 
-    public User(RegisterUserDto registerUserDto) {
-        //TODO
+    public static User of(RegisterUserDto userDto) {
+        User user = new User();
+        user.setPassword(userDto.getPassword());
+        user.setEmail(userDto.getEmail());
+        user.setToken(userDto.getToken());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        return user;
     }
 
     public User() {
