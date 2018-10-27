@@ -14,13 +14,21 @@
     <link href="<c:url value="/resources/static/css/singin.css"/>" rel="stylesheet">
 </head>
 <body class="text-center">
-<spring:form class="form-signin" action="/login" method="post" modelAttribute="user">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+<spring:form class="form-signin" action="/register" method="post" modelAttribute="userDto">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
+
     <label for="inputEmail" class="sr-only">Email address</label>
     <spring:input path="email" type="email" id="inputEmail" class="form-control" placeholder="Email address"/>
+
     <label for="inputPassword" class="sr-only">Password</label>
     <spring:input path="password" type="password" id="inputPassword" class="form-control" placeholder="Password"/>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+    <label for="inputPassword" class="sr-only">Repeat password</label>
+    <spring:input path="verifiedPassword" type="password" id="inputPassword" class="form-control" placeholder="Password"/>
+
+    <spring:errors path="verifiedPassword" cssClass="error"/>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 </spring:form>
 </body>
 </html>

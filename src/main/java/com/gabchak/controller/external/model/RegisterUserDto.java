@@ -1,51 +1,36 @@
-package com.gabchak.model;
+package com.gabchak.controller.external.model;
 
-import com.gabchak.controller.external.model.RegisterUserDto;
+import com.gabchak.validator.annotations.FieldMatch;
 
 import javax.validation.constraints.NotNull;
 
-public class User {
+@FieldMatch.Field({
+        @FieldMatch(
+                message = "Password doesn't match",
+                field = "password",
+                fieldMatch = "verifiedPassword")
+})
+public class RegisterUserDto {
 
-    private Long id;
     @NotNull
     private String email;
     @NotNull
     private String password;
+    private String verifiedPassword;
     private String firstName;
     private String lastName;
     private String token;
 
-    public User(Long id, String email, String password, String firstName, String lastName, String token) {
-        this.id = id;
+    private RegisterUserDto(String email, String password, String verifiedPassword, String firstName, String lastName, String token) {
         this.email = email;
         this.password = password;
+        this.verifiedPassword = verifiedPassword;
         this.firstName = firstName;
         this.lastName = lastName;
         this.token = token;
     }
 
-    public User(RegisterUserDto registerUserDto) {
-        //TODO
-    }
-
-    public User() {
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
+    private RegisterUserDto() {
     }
 
     public String getEmail() {
@@ -84,4 +69,19 @@ public class User {
         return token;
     }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getVerifiedPassword() {
+        return verifiedPassword;
+    }
+
+    public void setVerifiedPassword(String verifiedPassword) {
+        this.verifiedPassword = verifiedPassword;
+    }
+
+    public static RegisterUserDto empty() {
+        return new RegisterUserDto();
+    }
 }
