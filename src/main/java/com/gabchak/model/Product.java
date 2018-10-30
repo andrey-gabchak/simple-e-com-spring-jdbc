@@ -14,10 +14,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, Double price, String description) {
+    public Product(String name, Double price, String description, Category category) {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.category = category;
     }
 
     public Long getId() {
