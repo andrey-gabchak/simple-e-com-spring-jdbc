@@ -11,8 +11,12 @@ import java.util.Optional;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public UserDaoImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public void addUser(User user) {
@@ -25,10 +29,32 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> getByEmail(String email) {
+    public Optional<User> findByEmail(String email) {
         return Optional.ofNullable(jdbcTemplate.queryForObject(
                 "SELECT ID, EMAIL, TOKEN, PASSWORD, FIRST_NAME, LAST_NAME FROM USERS WHERE EMAIL = ?",
                 new Object[] {email}, new BeanPropertyRowMapper<>(User.class)));
-        //new Object[] {email}, new BeanPropertyRowMapper<>(User.class) костыли, так нормально не работало
+    }
+
+    @Override
+    public void update(User user) {
+        jdbcTemplate.update("UPDATE USERS SET EMAIL = ?, PASSWORD = ?, FIRST_NAME = ?, LAST_NAME = ?, TOKEN = ? WHERE ID = ?",
+                user.getEmail(),
+                user.getPassword(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getToken(),
+                user.getId());
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE ID = ?",
+                new Object[] {id}, new BeanPropertyRowMapper<>(User.class)));
+    }
+
+    @Override
+    public Optional<User> findByToken(String token) {
+        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE TOKEN = ?",
+                new Object[] {token}, new BeanPropertyRowMapper<>(User.class)));
     }
 }

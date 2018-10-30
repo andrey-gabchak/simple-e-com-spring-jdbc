@@ -8,6 +8,12 @@ public interface UserDao {
 
     void addUser(User user);
 
-    Optional<User> getByEmail(String email);
+    Optional<User> findByEmail(String email);
+
+    void update(User user);
+
+    Optional<User> findById(Long id);
+
+    Optional<User> findByToken(String token);
 
 }
