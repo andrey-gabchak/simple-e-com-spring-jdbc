@@ -19,9 +19,6 @@ public class ProductDaoImpl implements ProductDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public ProductDaoImpl() {
-    }
-
     @Override
     public void addProduct(Product product) {
         jdbcTemplate.update("INSERT INTO PRODUCTS (NAME, PRICE, DESCRIPTION, FK_CATEGORIES) VALUES (?, ?, ?, ?)",
