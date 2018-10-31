@@ -16,6 +16,9 @@ public class Category {
         this.products = products;
     }
 
+    public Category() {
+    }
+
     public Category(String name) {
         this.name = name;
     }
