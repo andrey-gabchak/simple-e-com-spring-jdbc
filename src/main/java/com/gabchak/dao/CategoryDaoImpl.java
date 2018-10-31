@@ -19,6 +19,9 @@ public class CategoryDaoImpl implements CategoryDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public CategoryDaoImpl() {
+    }
+
     @Override
     public void addCategory(Category category) {
         jdbcTemplate.update("INSERT INTO CATEGORIES (CATEGORY_NAME) VALUES (?)",
