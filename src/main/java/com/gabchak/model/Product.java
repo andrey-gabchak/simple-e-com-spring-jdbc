@@ -1,5 +1,7 @@
 package com.gabchak.model;
 
+import com.gabchak.controller.external.model.ProductDto;
+
 import javax.validation.constraints.NotNull;
 
 public class Product {
@@ -9,16 +11,34 @@ public class Product {
     private String name;
     private Double price;
     private String description;
-    private Category category;
+    private Long categoryId;
 
     public Product() {
     }
 
-    public Product(String name, Double price, String description, Category category) {
+    public Product(String name, Double price, String description, Long categoryId) {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.category = category;
+        this.categoryId = categoryId;
+    }
+
+    public Product(Long id, String name, Double price, String description, Long categoryId) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.categoryId = categoryId;
+    }
+
+    public static Product of(ProductDto productDto) {
+        return new Product(
+                productDto.getId(),
+                productDto.getName(),
+                productDto.getPrice(),
+                productDto.getDescription(),
+                productDto.getCategoryId()
+        );
     }
 
     public Long getId() {
@@ -53,12 +73,12 @@ public class Product {
         this.description = description;
     }
 
-    public Category getCategory() {
-        return category;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
 }
