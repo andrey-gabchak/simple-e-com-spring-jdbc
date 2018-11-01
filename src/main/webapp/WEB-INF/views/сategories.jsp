@@ -1,10 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="header.jsp" %>
 
-<!doctype html>
-<html lang="en">
-<head>
-
-</head>
 <body>
 
 <c:forEach var="cat" items="${categories}">
