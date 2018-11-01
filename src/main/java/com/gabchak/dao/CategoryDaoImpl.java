@@ -62,7 +62,6 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public void deleteById(Long id) {
-        jdbcTemplate.update("DELETE FROM CATEGORIES WHERE ID = ?",
-                id);
+        jdbcTemplate.update("DELETE FROM CATEGORIES WHERE ID = ?", id);
     }
 }

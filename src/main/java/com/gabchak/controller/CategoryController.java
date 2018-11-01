@@ -24,7 +24,6 @@ public class CategoryController {
 
         vm.setViewName("categories");
         vm.addObject("categories", categoryService.findAll());
-
         return vm;
     }
 
