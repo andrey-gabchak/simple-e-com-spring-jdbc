@@ -51,7 +51,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public Optional<List<Product>> findAll() {
-        return Optional.ofNullable(jdbcTemplate.queryForList("SELECT ID, NAME, PRICE, DESCRIPTION, FK_CATEGORIES FROM PRODUCTS",
-                Product.class));
+        return Optional.ofNullable(jdbcTemplate.query("SELECT ID, NAME, PRICE, DESCRIPTION, FK_CATEGORIES FROM PRODUCTS",
+                new BeanPropertyRowMapper<>(Product.class)));
     }
 }
