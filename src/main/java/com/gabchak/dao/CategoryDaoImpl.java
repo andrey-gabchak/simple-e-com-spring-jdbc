@@ -1,6 +1,7 @@
 package com.gabchak.dao;
 
 import com.gabchak.model.Category;
+import com.gabchak.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,11 +42,22 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public Optional<Category> findByIdWithProductList(Long id) {
-        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT C.CATEGORY_NAME, P.ID, P.NAME, P.PRICE, P.DESCRIPTION " +
-                        "FROM CATEGORIES C JOIN PRODUCTS P " +
-                        "ON C.ID = P.FK_CATEGORIES " +
-                        "WHERE C.ID = ?",
-                new Object[]{id}, new BeanPropertyRowMapper<>(Category.class)));
+        List<Product> products = jdbcTemplate.query("SELECT ID, NAME, PRICE, DESCRIPTION, FK_CATEGORIES FROM PRODUCTS WHERE FK_CATEGORIES = ?",
+                new Object[]{id}, (rs, rowNum) -> new Product(
+                        rs.getLong("ID"),
+                        rs.getString("NAME"),
+                        rs.getDouble("PRICE"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getLong("FK_CATEGORIES")
+                ));
+        Optional<Category> optionalCategory = findById(id);
+        Category category = optionalCategory.orElse(null);
+        if (category != null) {
+            category.setProducts(products);
+        }
+
+        return Optional.ofNullable(category);
+
     }
 
     @Override

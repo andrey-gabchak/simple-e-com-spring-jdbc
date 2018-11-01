@@ -27,12 +27,11 @@ public class CategoryController {
         return vm;
     }
 
-    @RequestMapping(path = "/categories/{id}", method = RequestMethod.GET)
-    public ModelAndView showCategoryPage(@PathVariable Long id) {
-        ModelAndView vm = new ModelAndView();
+    @RequestMapping(path = "/category_{id}", method = RequestMethod.GET)
+    public ModelAndView showCategoryPage(@PathVariable Long id, ModelAndView vm) {
 
         vm.setViewName("category");
-        vm.addObject("category", categoryService.findById(id));
+        vm.addObject("category", categoryService.findByIdWithProductList(id));
 
         return vm;
     }

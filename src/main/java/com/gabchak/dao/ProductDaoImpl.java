@@ -25,7 +25,7 @@ public class ProductDaoImpl implements ProductDao {
                 product.getName(),
                 product.getPrice(),
                 product.getDescription(),
-                product.getCategory());
+                product.getCategoryId());
     }
 
     @Override
@@ -40,7 +40,7 @@ public class ProductDaoImpl implements ProductDao {
                 product.getName(),
                 product.getPrice(),
                 product.getDescription(),
-                product.getCategory(),
+                product.getCategoryId(),
                 product.getId());
     }
 
