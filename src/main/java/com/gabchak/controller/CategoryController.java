@@ -19,22 +19,23 @@ public class CategoryController {
     }
 
     @RequestMapping(path = "/categories", method = RequestMethod.GET)
-    public ModelAndView showAllCategories() {
-        ModelAndView vm = new ModelAndView();
+    public ModelAndView showAllCategories(ModelAndView vm) {
 
         vm.setViewName("categories");
         vm.addObject("categories", categoryService.findAll());
+
         return vm;
     }
 
     @RequestMapping(path = "/category_{id}", method = RequestMethod.GET)
-    public ModelAndView showCategoryPage(@PathVariable Long id, ModelAndView vm) {
+    public ModelAndView fingCategoryById(@PathVariable Long id, ModelAndView vm) {
 
         vm.setViewName("category");
         vm.addObject("category", categoryService.findByIdWithProductList(id));
 
         return vm;
     }
+
 
 
     //TODO: page create category
