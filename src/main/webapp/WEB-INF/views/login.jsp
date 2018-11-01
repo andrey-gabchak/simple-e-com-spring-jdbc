@@ -22,5 +22,6 @@
     <spring:input path="password" type="password" id="inputPassword" class="form-control" placeholder="Password"/>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 </spring:form>
+
 </body>
 </html>
