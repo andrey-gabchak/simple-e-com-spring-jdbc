@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class ProductDaoImpl implements ProductDao {
@@ -29,9 +28,15 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Optional<Product> findById(Long id) {
-        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT NAME, PRICE, DESCRIPTION, FK_CATEGORIES FROM PRODUCTS WHERE ID = ?",
-                new Object[] {id}, new BeanPropertyRowMapper<>(Product.class)));
+    public Product findById(Long id) {
+        return jdbcTemplate.queryForObject("SELECT ID, NAME, PRICE, DESCRIPTION, FK_CATEGORIES FROM PRODUCTS WHERE ID = ?",
+                new Object[] {id}, (rs, rowNum) -> new Product(
+                        rs.getLong("ID"),
+                        rs.getString("NAME"),
+                        rs.getDouble("PRICE"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getLong("FK_CATEGORIES")
+                ));
     }
 
     @Override
@@ -50,8 +55,14 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Optional<List<Product>> findAll() {
-        return Optional.ofNullable(jdbcTemplate.query("SELECT ID, NAME, PRICE, DESCRIPTION, FK_CATEGORIES FROM PRODUCTS",
-                new BeanPropertyRowMapper<>(Product.class)));
+    public List<Product> findAll() {
+        return jdbcTemplate.query("SELECT ID, NAME, PRICE, DESCRIPTION, FK_CATEGORIES FROM PRODUCTS",
+                (rs, rowNum) -> new Product(
+                        rs.getLong("ID"),
+                        rs.getString("NAME"),
+                        rs.getDouble("PRICE"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getLong("FK_CATEGORIES")
+                ));
     }
 }
