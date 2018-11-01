@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Signin Template for Bootstrap</title>
+    <title>Register</title>
     <!-- Bootstrap core CSS -->
     <link href="<c:url value="/resources/static/css/bootstrap.min.css"/>" rel="stylesheet">
     <!-- Custom styles for this template -->

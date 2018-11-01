@@ -19,7 +19,7 @@ public class UserController {
 
     private  UserService userService;
 
-    @Autowired //Можно @Autowired писать над конструктором или над полем и тогда без конструктора.
+    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/register", method = RequestMethod.GET)
-    public ModelAndView register(ModelAndView vm) { //Spring вкладывает ViewModel
+    public ModelAndView register(ModelAndView vm) {
 
         vm.setViewName("register");
         vm.addObject("userDto", RegisterUserDto.empty());
