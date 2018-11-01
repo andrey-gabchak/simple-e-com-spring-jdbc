@@ -4,13 +4,9 @@ import com.gabchak.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -61,7 +57,10 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public Optional<List<Category>> findAll() {
         return Optional.ofNullable(jdbcTemplate.query("SELECT ID, CATEGORY_NAME FROM CATEGORIES",
-                new BeanPropertyRowMapper<>(Category.class)));
+                (rs, rowNum) -> new Category(
+                        rs.getLong("ID"),
+                        rs.getString("CATEGORY_NAME")
+                )));
     }
 
     @Override
