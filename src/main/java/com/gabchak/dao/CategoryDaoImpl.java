@@ -4,9 +4,13 @@ import com.gabchak.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -35,7 +39,7 @@ public class CategoryDaoImpl implements CategoryDao {
     @Override
     public Optional<Category> findById(Long id) {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT CATEGORY_NAME FROM CATEGORIES WHERE ID = ?",
-                new Object[] {id}, new BeanPropertyRowMapper<>(Category.class)));
+                new Object[]{id}, new BeanPropertyRowMapper<>(Category.class)));
 
     }
 
@@ -45,19 +49,19 @@ public class CategoryDaoImpl implements CategoryDao {
                         "FROM CATEGORIES C JOIN PRODUCTS P " +
                         "ON C.ID = P.FK_CATEGORIES " +
                         "WHERE C.ID = ?",
-                new Object[] {id}, new BeanPropertyRowMapper<>(Category.class)));
+                new Object[]{id}, new BeanPropertyRowMapper<>(Category.class)));
     }
 
     @Override
     public Optional<Category> findByName(String name) {
         return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT ID, CATEGORY_NAME FROM CATEGORIES WHERE CATEGORY_NAME = ?",
-                new Object[] {name}, new BeanPropertyRowMapper<>(Category.class)));
+                new Object[]{name}, new BeanPropertyRowMapper<>(Category.class)));
     }
 
     @Override
     public Optional<List<Category>> findAll() {
-        return Optional.ofNullable(jdbcTemplate.queryForList("SELECT * FROM CATEGORIES",
-                Category.class));
+        return Optional.ofNullable(jdbcTemplate.query("SELECT ID, CATEGORY_NAME FROM CATEGORIES",
+                new BeanPropertyRowMapper<>(Category.class)));
     }
 
     @Override
