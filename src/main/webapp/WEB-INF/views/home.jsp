@@ -1,6 +1,7 @@
 <%@include file="header.jsp" %>
 
-<body>
-    <h1>Hello from Spring!</h1>
+    <div>
+        <h1>Hello from Spring!</h1>
+    </div>
 </body>
 </html>

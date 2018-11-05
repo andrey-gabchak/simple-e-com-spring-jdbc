@@ -8,6 +8,10 @@
     <label for="inputPassword" class="sr-only">Password</label>
     <springForm:input path="password" type="password" id="inputPassword" class="form-control" placeholder="Password"/>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <div style="margin: 15px">
+        <a href="register.jsp">Create new account</a>
+    </div>
+
 </springForm:form>
 
 </body>
