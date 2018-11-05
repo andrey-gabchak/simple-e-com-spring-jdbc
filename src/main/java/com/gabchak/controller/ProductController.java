@@ -18,8 +18,8 @@ public class ProductController {
         this.productDao = productDao;
     }
 
-    @RequestMapping(path = "/category_{categoryId}/product_{productId}", method = RequestMethod.GET)
-    public ModelAndView showProductPage(@PathVariable Long categoryId, @PathVariable Long productId, ModelAndView vm) {
+    @RequestMapping(path = "/{categoryName}/product_{productId}", method = RequestMethod.GET)
+    public ModelAndView showProductPage2(@PathVariable String categoryName, @PathVariable Long productId, ModelAndView vm) {
 
         vm.setViewName("product");
         vm.addObject("product", productDao.findById(productId));
