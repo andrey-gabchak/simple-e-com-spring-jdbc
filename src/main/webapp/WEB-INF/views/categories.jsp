@@ -7,7 +7,7 @@
 
     <div class="list-group">
         <c:forEach var="c" items="${categories}">
-            <a href="<c:url value = "/category_${c.id}"/>" class="list-group-item list-group-item-action"><c:out
+            <a href="<c:url value = "/${c.name}"/>" class="list-group-item list-group-item-action"><c:out
                     value="${c.name}"/></a>
         </c:forEach>
     </div>

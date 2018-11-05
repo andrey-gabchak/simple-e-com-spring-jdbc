@@ -1,5 +1,6 @@
 package com.gabchak.controller;
 
+import com.gabchak.model.Category;
 import com.gabchak.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,19 @@ public class CategoryController {
     }
 
     @RequestMapping(path = "/category_{id}", method = RequestMethod.GET)
-    public ModelAndView fingCategoryById(@PathVariable Long id, ModelAndView vm) {
+    public ModelAndView findCategoryById(@PathVariable Long id, ModelAndView vm) {
 
         vm.setViewName("category");
         vm.addObject("category", categoryService.findByIdWithProductList(id));
+
+        return vm;
+    }
+
+    @RequestMapping(path = "/{categoryName}", method = RequestMethod.GET)
+    public ModelAndView findCategoryByName(@PathVariable String categoryName, ModelAndView vm) {
+        Category category = categoryService.findByName(categoryName);
+        vm.setViewName("category");
+        vm.addObject("category", categoryService.findByIdWithProductList(category.getId()));
 
         return vm;
     }

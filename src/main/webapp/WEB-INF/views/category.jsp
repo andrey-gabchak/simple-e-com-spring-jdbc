@@ -12,7 +12,7 @@
                 <div class="card mb-4 swadow-sm">
                     <div class="card-body">
                         <h3>
-                            <a href="<c:url value="/category_${category.id}/product_${p.id}"/>"><c:out value="${p.name}"/></a>
+                            <a href="<c:url value="/${category.name}/product_${p.id}"/>"><c:out value="${p.name}"/></a>
                         </h3>
                         <h4>
                             <small class="text-muted">${p.price}</small>
