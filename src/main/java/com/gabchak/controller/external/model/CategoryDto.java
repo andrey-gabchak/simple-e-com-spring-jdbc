@@ -11,11 +11,18 @@ public class CategoryDto {
         this.name = name;
     }
 
+    private CategoryDto() {
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static CategoryDto empty() {
+        return new CategoryDto();
     }
 }
