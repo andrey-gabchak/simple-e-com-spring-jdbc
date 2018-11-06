@@ -14,7 +14,12 @@
     <div class="row justify-content-end">
         <p class="col-6"> id = ${product.id}</p>
     </div>
-    <div class="row">
+    <div class="row justify-content-end">
+        <form class="col-6" action="#">
+            <button type="button" class="btn btn-success">Buy</button>
+        </form>
+    </div>
+    <div class="row" style="margin-top: 50px">
         <p class="col-12">
             ${product.description}
         </p>
