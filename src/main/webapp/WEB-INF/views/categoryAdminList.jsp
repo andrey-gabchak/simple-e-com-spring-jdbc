@@ -14,7 +14,7 @@
 <div class="container">
 
     <div class="row top-buffer">
-        <div class="col-8"><h1>Categories</h1></div>
+        <div class="col-8"><h1 class="display-4">Categories</h1></div>
     </div>
     <c:forEach items="${categories}" var="category">
         <div class="row top-buffer">
