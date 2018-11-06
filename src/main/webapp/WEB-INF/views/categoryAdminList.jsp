@@ -22,14 +22,14 @@
             <div class="col-1">
                 <div class="col-md-12">
                     <form name="Edit category" action="/admin/categories/${category.id}" method="get">
-                        <button type="button" class="btn btn-default">Edit</button>
+                        <button type="submit" class="btn btn-default">Edit</button>
                     </form>
                 </div>
             </div>
             <div class="col-1">
                 <div class="col-md-12">
                     <form name="Delete category" action="/admin/categories/${category.id}_delete" method="post">
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
             </div>
@@ -38,7 +38,7 @@
     <div class="row top-buffer">
         <div class="col-md-10 text-center">
             <form name="Create category" action="/admin/categories/create_category" method="get">
-                <button type="button" class="btn btn-primary btn-lg">Create</button>
+                <button type="submit" class="btn btn-primary btn-lg">Create</button>
             </form>
         </div>
     </div>
