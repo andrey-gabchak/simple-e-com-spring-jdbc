@@ -13,7 +13,7 @@
         <div class="row justify-content-center" style="margin-bottom: 20px">
             <div class="col-6">
                 <springForm:label for="categoryName" class="sr-only" path="name">Category name</springForm:label>
-                <springForm:input  path="name" type="text" id="categoryName" class="form-control" placeholder="Category name"/>
+                <springForm:input path="name" type="text" id="categoryName" class="form-control" placeholder="Category name"/>
 
             </div>
         </div>
