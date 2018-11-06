@@ -19,7 +19,7 @@
                             <a href="<c:url value="/${category.name}/product_${p.id}"/>"><c:out value="${p.name}"/></a>
                         </h3>
                         <h4>
-                            <small class="text-muted">${p.price}</small>
+                            <small class="text-muted">${p.price} $</small>
                         </h4>
                         <p>${p.description}</p>
                     </div>
