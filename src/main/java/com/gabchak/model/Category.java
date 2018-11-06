@@ -30,7 +30,7 @@ public class Category {
         this.name = name;
     }
 
-    public Category of(CategoryDto categoryDto) {
+    public static Category of(CategoryDto categoryDto) {
         return new Category(categoryDto.getName());
     }
 

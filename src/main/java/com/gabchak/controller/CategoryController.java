@@ -1,5 +1,6 @@
 package com.gabchak.controller;
 
+import com.gabchak.controller.external.model.CategoryDto;
 import com.gabchak.model.Category;
 import com.gabchak.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,13 +55,13 @@ public class CategoryController {
     @GetMapping("/admin/categories/create_category")
     public ModelAndView createCategoryPage(ModelAndView vm) {
         vm.setViewName("categoryCreate");
-        vm.addObject("category", new Category());
+        vm.addObject("category", CategoryDto.empty());
         return vm;
     }
 
     @PostMapping("/admin/categories/create_category")
-    public ModelAndView createCategory(Category category, ModelAndView vm) {
-        categoryService.addCategory(category);
+    public ModelAndView createCategory(CategoryDto categoryDto, ModelAndView vm) {
+        categoryService.addCategory(Category.of(categoryDto));
         vm.setViewName("categoryAdminList");
         vm.addObject("categories", categoryService.findAll());
         return vm;
