@@ -68,6 +68,7 @@ public class CategoryController {
     @PostMapping("/admin/categories/{id}_delete")
     public ModelAndView deleteCategory(@PathVariable Long id, ModelAndView vm) {
         categoryService.deleteById(id);
+        vm.setViewName("categoryAdminList");
         vm.addObject("categories", categoryService.findAll());
         return vm;
     }
