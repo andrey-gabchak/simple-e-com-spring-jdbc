@@ -21,7 +21,7 @@
             <div class="col-8">${category.name}</div>
             <div class="col-1">
                 <div class="col-md-12">
-                    <form name="Edit category" action="/admin/categories/${category.id}" method="get">
+                    <form name="Edit category" action="/admin/categories/edit_${category.id}" method="get">
                         <button type="submit" class="btn btn-default">Edit</button>
                     </form>
                 </div>
