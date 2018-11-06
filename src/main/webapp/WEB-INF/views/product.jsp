@@ -1,6 +1,8 @@
 <%@include file="header.jsp" %>
 
 <body>
+<%@ include file="navBar.jsp"%>
+
 <div>
     <h1>${product.name} </h1>
     <div>

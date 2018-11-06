@@ -6,6 +6,8 @@
     <input type="submit" value="Save">
 </form>
 --%>
+<body>
+<%@ include file="navBar.jsp"%>
 
 <springForm:form class="form-signin" action="/admin/categories/create_category" method="post" modelAttribute="category">
     <h1 class="h3 mb-3 font-weight-normal">New category</h1>

@@ -1,7 +1,7 @@
 <%@include file="header.jsp" %>
 
 <body>
-
+<%@ include file="navBar.jsp"%>
 <div class="container form-signin">
     <h1 class="display-4">Categories</h1>
 

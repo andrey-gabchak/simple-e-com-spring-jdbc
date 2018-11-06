@@ -12,6 +12,8 @@
     </style>
 </head>
 <body>
+<%@ include file="navBar.jsp"%>
+
 <table style="align-items: center">
     <tr>
         <th>Category name</th>

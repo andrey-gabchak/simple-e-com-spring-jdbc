@@ -1,6 +1,8 @@
 <%@include file="header.jsp" %>
 
 <body>
+<%@ include file="navBar.jsp"%>
+
 <div class="album py-5 bg-light"></div>
 <div class="container">
     <h1 class="display-4">${category.name}</h1>
