@@ -4,9 +4,7 @@ import com.gabchak.model.Category;
 import com.gabchak.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -46,8 +44,16 @@ public class CategoryController {
         return vm;
     }
 
+    @GetMapping("/admin/categories/create_category")
+    public String createCategoryPage() {
+        return "categoryCreate";
+    }
 
+    @PostMapping("/admin/categories/create_category")
+    public String createCategory(@PathVariable String categoryName) {
+        categoryService.addCategory(new Category(categoryName));
+        return "categoryAdminList";
+    }
 
-    //TODO: page create category
     //TODO: page edit category
 }
