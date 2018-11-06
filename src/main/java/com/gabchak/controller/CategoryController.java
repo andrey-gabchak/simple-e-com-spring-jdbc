@@ -53,7 +53,7 @@ public class CategoryController {
 
     @GetMapping("/admin/categories/create_category")
     public ModelAndView createCategoryPage(ModelAndView vm) {
-        vm.setViewName("category");
+        vm.setViewName("categoryCreate");
         vm.addObject("category", new Category());
         return vm;
     }
@@ -61,6 +61,7 @@ public class CategoryController {
     @PostMapping("/admin/categories/create_category")
     public ModelAndView createCategory(@PathVariable String categoryName, ModelAndView vm) {
         categoryService.addCategory(new Category(categoryName));
+        vm.setViewName("categoryAdminList");
         vm.addObject("categories", categoryService.findAll());
         return vm;
     }
