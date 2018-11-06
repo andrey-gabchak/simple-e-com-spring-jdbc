@@ -59,8 +59,8 @@ public class CategoryController {
     }
 
     @PostMapping("/admin/categories/create_category")
-    public ModelAndView createCategory(String categoryName, ModelAndView vm) {
-        categoryService.addCategory(new Category(categoryName));
+    public ModelAndView createCategory(Category category, ModelAndView vm) {
+        categoryService.addCategory(category);
         vm.setViewName("categoryAdminList");
         vm.addObject("categories", categoryService.findAll());
         return vm;
