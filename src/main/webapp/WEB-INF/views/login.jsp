@@ -1,5 +1,8 @@
 <%@include file="header.jsp" %>
 
+<head>
+    <title>Login</title>
+</head>
 <body class="text-center">
 <springForm:form class="form-signin" action="/login" method="post" modelAttribute="user">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>

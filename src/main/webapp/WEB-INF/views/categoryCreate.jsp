@@ -1,11 +1,8 @@
 <%@include file="header.jsp" %>
 
-<%--
-<form name="category" action="/admin/categories/create_category" method="post">
-    <input title="Category name" type="text" name="categoryName">
-    <input type="submit" value="Save">
-</form>
---%>
+<head>
+    <title>Creating category</title>
+</head>
 <body>
 <%@ include file="navBar.jsp"%>
 

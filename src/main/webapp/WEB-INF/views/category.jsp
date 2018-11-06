@@ -1,5 +1,7 @@
 <%@include file="header.jsp" %>
-
+<head>
+    <title>${category.name}</title>
+</head>
 <body>
 <%@ include file="navBar.jsp"%>
 

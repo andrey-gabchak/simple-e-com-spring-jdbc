@@ -2,42 +2,46 @@
 
 <head>
     <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 15px;
+        .top-buffer {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-<%@ include file="navBar.jsp"%>
+<%@ include file="navBar.jsp" %>
 
-<table style="align-items: center">
-    <tr>
-        <th>Category name</th>
-        <th></th>
-        <th></th>
-    </tr>
+
+<div class="container">
+
+    <div class="row top-buffer">
+        <div class="col-8"><h1>Categories</h1></div>
+    </div>
     <c:forEach items="${categories}" var="category">
-        <tr>
-            <td>${category.name}</td>
-            <td><form name="Edit category" action="/admin/categories/${category.id}" method="get">
-                <button>Edit</button>
-            </form>
-            </td>
-            <td>
-                <form name="Delete category" action="/admin/categories/${category.id}_delete" method="post">
-                    <button>Delete</button>
-                </form>
-            </td>
-        </tr>
+        <div class="row top-buffer">
+            <div class="col-8">${category.name}</div>
+            <div class="col-1">
+                <div class="col-md-12">
+                    <form name="Edit category" action="/admin/categories/${category.id}" method="get">
+                        <button type="button" class="btn btn-default">Edit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="col-md-12">
+                    <form name="Delete category" action="/admin/categories/${category.id}_delete" method="post">
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </c:forEach>
-</table>
-<form name="Create category" action="/admin/categories/create_category" method="get">
-    <button>Create</button>
-</form>
+    <div class="row top-buffer">
+        <div class="col-md-10 text-center">
+            <form name="Create category" action="/admin/categories/create_category" method="get">
+                <button type="button" class="btn btn-primary btn-lg">Create</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 </body>

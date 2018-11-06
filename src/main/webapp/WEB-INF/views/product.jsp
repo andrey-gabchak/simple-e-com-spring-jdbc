@@ -5,12 +5,14 @@
 
 
 <div class="container">
-    <div class="row">
-        <div class="col-8"><h1>${product.name} </h1></div>
-        <div class="col-4"><h3>${product.price}</h3></div>
+    <div class="row justify-content-end">
+        <div class="col-6"><h1>${product.name} </h1></div>
     </div>
-    <div class="rom">
-        <p class="col-1"> id = ${product.id}</p>
+    <div class="row justify-content-end">
+        <div class="col-6"><h3>${product.price}</h3></div>
+    </div>
+    <div class="row justify-content-end">
+        <p class="col-6"> id = ${product.id}</p>
     </div>
     <div class="row">
         <p class="col-12">
