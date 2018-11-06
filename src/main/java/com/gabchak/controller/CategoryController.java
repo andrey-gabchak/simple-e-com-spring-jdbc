@@ -55,5 +55,10 @@ public class CategoryController {
         return "categoryAdminList";
     }
 
+    @PostMapping("/admin/categories/{id}_delete")
+    public String deleteCategory(@PathVariable Long id) {
+        categoryService.deleteById(id);
+        return "categoryAdminList";
+    }
     //TODO: page edit category
 }
