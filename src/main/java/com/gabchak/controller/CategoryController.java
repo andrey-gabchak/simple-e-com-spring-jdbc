@@ -74,5 +74,19 @@ public class CategoryController {
         vm.addObject("categories", categoryService.findAll());
         return vm;
     }
-    //TODO: page edit category
+
+    @GetMapping("/admin/categories/edit_{id}")
+    public ModelAndView editCategoryPage(@PathVariable Long id, ModelAndView vm) {
+        vm.setViewName("category");
+        vm.addObject("category", categoryService.findById(id));
+        return vm;
+    }
+
+    @PostMapping("/admin/categories/save")
+    public ModelAndView saveCategory(@PathVariable CategoryDto categoryDto, ModelAndView vm) {
+        categoryService.update(Category.of(categoryDto));
+        vm.setViewName("categoryAdminList");
+        vm.addObject("categories", categoryService.findAll());
+        return vm;
+    }
 }
