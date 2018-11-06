@@ -44,21 +44,32 @@ public class CategoryController {
         return vm;
     }
 
+    @GetMapping("/admin/categories")
+    public ModelAndView categoryAdminList(ModelAndView vm) {
+        vm.setViewName("categoryAdminList");
+        vm.addObject("categories", categoryService.findAll());
+        return vm;
+    }
+
     @GetMapping("/admin/categories/create_category")
-    public String createCategoryPage() {
-        return "categoryCreate";
+    public ModelAndView createCategoryPage(ModelAndView vm) {
+        vm.setViewName("category");
+        vm.addObject("category", new Category());
+        return vm;
     }
 
     @PostMapping("/admin/categories/create_category")
-    public String createCategory(@PathVariable String categoryName) {
+    public ModelAndView createCategory(@PathVariable String categoryName, ModelAndView vm) {
         categoryService.addCategory(new Category(categoryName));
-        return "categoryAdminList";
+        vm.addObject("categories", categoryService.findAll());
+        return vm;
     }
 
     @PostMapping("/admin/categories/{id}_delete")
-    public String deleteCategory(@PathVariable Long id) {
+    public ModelAndView deleteCategory(@PathVariable Long id, ModelAndView vm) {
         categoryService.deleteById(id);
-        return "categoryAdminList";
+        vm.addObject("categories", categoryService.findAll());
+        return vm;
     }
     //TODO: page edit category
 }
