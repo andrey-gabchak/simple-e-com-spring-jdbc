@@ -31,7 +31,11 @@ public class Category {
     }
 
     public static Category of(CategoryDto categoryDto) {
-        return new Category(categoryDto.getName());
+        return new Category(
+                categoryDto.getId(),
+                categoryDto.getName(),
+                categoryDto.getProducts()
+                );
     }
 
     public Long getId() {
