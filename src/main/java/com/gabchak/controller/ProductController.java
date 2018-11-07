@@ -26,6 +26,13 @@ public class ProductController {
         return vm;
     }
 
+    @GetMapping("/admin/products")
+    public ModelAndView productAdminList(ModelAndView vm) {
+        vm.setViewName("productAdminList");
+        vm.addObject("products", productDao.findAll());
+        return vm;
+    }
+
     @GetMapping("/admin/products/edit_{id}")
     public ModelAndView editProductPage(@PathVariable Long id, ModelAndView vm) {
         vm.setViewName("product");
