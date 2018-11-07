@@ -34,6 +34,14 @@ public class ProductController {
     }
 
 
+    @PostMapping("/admin/products/save")
+    public ModelAndView saveProduct(Product product, ModelAndView vm) {
+        productDao.update(product);
+        vm.setViewName("productAdminList");
+        vm.addObject("products", productDao.findAll());
+        return vm;
+    }
+
 
     //TODO: admin: add product page
     //TODO: admin: remove product (POST)
