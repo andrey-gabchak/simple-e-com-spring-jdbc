@@ -79,7 +79,7 @@ public class UserController {
         return vm;
     }
 
-    @PostMapping("/admin/users/edit_{id}")
+    @PostMapping("/admin/users/save_{id}")
     public ModelAndView editUserPage(@PathVariable Long id, User user, ModelAndView vm) {
         user.setId(id);
         userService.update(user);
