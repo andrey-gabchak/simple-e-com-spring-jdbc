@@ -5,7 +5,9 @@ import com.gabchak.model.Category;
 import com.gabchak.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -18,25 +20,21 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(path = "/categories", method = RequestMethod.GET)
+    @GetMapping("/categories")
     public ModelAndView showAllCategories(ModelAndView vm) {
-
         vm.setViewName("categories");
         vm.addObject("categories", categoryService.findAll());
-
         return vm;
     }
 
-    @RequestMapping(path = "/category_{id}", method = RequestMethod.GET)
+    @GetMapping("/category_{id}")
     public ModelAndView findCategoryById(@PathVariable Long id, ModelAndView vm) {
-
         vm.setViewName("category");
         vm.addObject("category", categoryService.findByIdWithProductList(id));
-
         return vm;
     }
 
-    @RequestMapping(path = "/{categoryName}", method = RequestMethod.GET)
+    @GetMapping("/{categoryName}")
     public ModelAndView findCategoryByName(@PathVariable String categoryName, ModelAndView vm) {
         Category category = categoryService.findByName(categoryName);
         vm.setViewName("category");
@@ -77,14 +75,14 @@ public class CategoryController {
 
     @GetMapping("/admin/categories/edit_{id}")
     public ModelAndView editCategoryPage(@PathVariable Long id, ModelAndView vm) {
-        vm.setViewName("category");
+        vm.setViewName("categoryEdit");
         vm.addObject("category", categoryService.findById(id));
         return vm;
     }
 
     @PostMapping("/admin/categories/save")
-    public ModelAndView saveCategory(@PathVariable CategoryDto categoryDto, ModelAndView vm) {
-        categoryService.update(Category.of(categoryDto));
+    public ModelAndView saveCategory(Category category, ModelAndView vm) {
+        categoryService.update(category);
         vm.setViewName("categoryAdminList");
         vm.addObject("categories", categoryService.findAll());
         return vm;
