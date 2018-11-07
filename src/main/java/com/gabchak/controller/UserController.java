@@ -64,4 +64,11 @@ public class UserController {
                     return vm;
                 });
     }
+
+    @GetMapping("/admin/users")
+    public ModelAndView shotUsersAdminList(ModelAndView vm) {
+        vm.setViewName("usersAdminList");
+        vm.addObject("users", userService.findAll());
+        return vm;
+    }
 }
