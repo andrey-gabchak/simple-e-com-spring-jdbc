@@ -64,4 +64,11 @@ public class ProductController {
         return vm;
     }
 
+    @PostMapping("/admin/products/create_product")
+    public ModelAndView createProduct(Product product, ModelAndView vm) {
+        productDao.addProduct(product);
+        vm.setViewName("productAdminList");
+        vm.addObject("products", productDao.findAll());
+        return vm;
+    }
 }
