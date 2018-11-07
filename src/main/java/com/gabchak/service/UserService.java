@@ -20,4 +20,6 @@ public interface UserService {
     User findById(Long id);
 
     void delete(Long id);
+
+    void logout();
 }

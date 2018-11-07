@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void logout() {
+        //TODO: write logic
+    }
+
+    @Override
     public Optional<User> getUserByEmail(String email) {
         return userDao.findByEmail(email);
     }

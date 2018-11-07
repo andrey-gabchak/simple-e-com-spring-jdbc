@@ -97,7 +97,10 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logout() {
-        return "login";
+    public ModelAndView logout(ModelAndView vm) {
+        userService.logout();
+        vm.setViewName("login");
+        vm.addObject("user", new User());
+        return vm;
     }
 }
