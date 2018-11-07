@@ -72,4 +72,8 @@ public class UserDaoImpl implements UserDao {
                 ));
     }
 
+    @Override
+    public void delete(Long id) {
+        jdbcTemplate.update("DELETE FROM USERS WHERE ID = ?", id);
+    }
 }
