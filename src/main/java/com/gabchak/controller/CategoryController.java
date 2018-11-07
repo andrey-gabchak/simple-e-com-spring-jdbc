@@ -80,8 +80,9 @@ public class CategoryController {
         return vm;
     }
 
-    @PostMapping("/admin/categories/save")
-    public ModelAndView saveCategory(Category category, ModelAndView vm) {
+    @PostMapping("/admin/categories/save_{id}")
+    public ModelAndView saveCategory(@PathVariable Long id, Category category, ModelAndView vm) {
+        category.setId(id);
         categoryService.update(category);
         vm.setViewName("categoryAdminList");
         vm.addObject("categories", categoryService.findAll());
