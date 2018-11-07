@@ -57,6 +57,11 @@ public class ProductController {
         return vm;
     }
 
-    //TODO: admin: add product page
-    //TODO: admin: remove product (POST)
+    @GetMapping("/admin/products/create_product")
+    public ModelAndView showCreateProductPage(ModelAndView vm) {
+        vm.setViewName("productCreate");
+        vm.addObject("product", new Product());
+        return vm;
+    }
+
 }
