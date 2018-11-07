@@ -48,9 +48,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE ID = ?",
-                new Object[] {id}, new BeanPropertyRowMapper<>(User.class)));
+    public User findById(Long id) {
+        return jdbcTemplate.queryForObject("SELECT EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE ID = ?",
+                new Object[] {id}, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override
