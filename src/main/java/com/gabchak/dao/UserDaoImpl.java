@@ -38,18 +38,18 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-        jdbcTemplate.update("UPDATE USERS SET EMAIL = ?, PASSWORD = ?, FIRST_NAME = ?, LAST_NAME = ?, TOKEN = ? WHERE ID = ?",
+        jdbcTemplate.update("UPDATE USERS SET EMAIL = ?, FIRST_NAME = ?, LAST_NAME = ? WHERE ID = ?",
                 user.getEmail(),
-                user.getPassword(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getToken(),
                 user.getId());
     }
 
+
+
     @Override
     public User findById(Long id) {
-        return jdbcTemplate.queryForObject("SELECT EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE ID = ?",
+        return jdbcTemplate.queryForObject("SELECT ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE ID = ?",
                 new Object[] {id}, new BeanPropertyRowMapper<>(User.class));
     }
 
