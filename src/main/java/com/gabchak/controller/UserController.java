@@ -72,6 +72,13 @@ public class UserController {
         return vm;
     }
 
+    @GetMapping("/admin/users/edit_{id}")
+    public ModelAndView showEditUserPage(@PathVariable Long id, ModelAndView vm) {
+        vm.setViewName("userEdit");
+        vm.addObject("user", userService.findById(id));
+        return vm;
+    }
+
     @PostMapping("/admin/users/edit_{id}")
     public ModelAndView editUserPage(@PathVariable Long id, User user, ModelAndView vm) {
         user.setId(id);
@@ -80,7 +87,4 @@ public class UserController {
         vm.addObject("users", userService.findAll());
         return vm;
     }
-
-    //edit
-    //edit role
 }
