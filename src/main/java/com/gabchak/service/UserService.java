@@ -14,4 +14,6 @@ public interface UserService {
     Optional<User> verifyPassword(User userByEmail, User user);
 
     List<User> findAll();
+
+    void update(User user);
 }
