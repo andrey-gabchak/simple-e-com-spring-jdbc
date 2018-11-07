@@ -22,6 +22,9 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="/admin/products">Products</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/admin/users">Users</a>
+                </li>
             </ul>
             <form class="form-inline mt-2 mt-md-0" action="/login">
                 <button class="btn btn-outline-success my-2 my-sm-0">Sign in</button>
