@@ -6,9 +6,7 @@ import com.gabchak.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -24,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(path = "/login", method = RequestMethod.GET)
+    @GetMapping("/login")
     public ModelAndView login() {
         ModelAndView vm = new ModelAndView();
         vm.setViewName("login");
@@ -32,7 +30,7 @@ public class UserController {
         return vm;
     }
 
-    @RequestMapping(path = "/register", method = RequestMethod.GET)
+    @GetMapping("/register")
     public ModelAndView register(ModelAndView vm) {
 
         vm.setViewName("register");
@@ -40,7 +38,7 @@ public class UserController {
         return vm;
     }
 
-    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    @PostMapping("/register")
     public String register(@Valid RegisterUserDto userDto, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -53,7 +51,7 @@ public class UserController {
         return "home";
     }
 
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    @PostMapping("/login")
     public ModelAndView login(@ModelAttribute(value = "user") User user, ModelAndView vm) {
         return userService.getUserByEmail(user.getEmail())
                 .map(r -> userService.verifyPassword(r, user))
