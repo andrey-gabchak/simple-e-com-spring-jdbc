@@ -41,8 +41,9 @@ public class ProductController {
     }
 
 
-    @PostMapping("/admin/products/save")
-    public ModelAndView saveProduct(Product product, ModelAndView vm) {
+    @PostMapping("/admin/products/save_{id}")
+    public ModelAndView saveProduct(@PathVariable Long id, Product product, ModelAndView vm) {
+        product.setId(id);
         productDao.update(product);
         vm.setViewName("productAdminList");
         vm.addObject("products", productDao.findAll());
