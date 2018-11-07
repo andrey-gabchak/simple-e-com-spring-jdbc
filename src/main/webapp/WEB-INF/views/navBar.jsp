@@ -17,7 +17,10 @@
                     <a class="nav-link" href="/categories">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="/admin/categories">Admin</a>
+                    <a class="nav-link disabled" href="/admin/categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="/admin/products">Products</a>
                 </li>
             </ul>
             <form class="form-inline mt-2 mt-md-0" action="/login">
