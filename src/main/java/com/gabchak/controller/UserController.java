@@ -87,4 +87,12 @@ public class UserController {
         vm.addObject("users", userService.findAll());
         return vm;
     }
+
+    @PostMapping("/admin/users/delete_{id}")
+    public ModelAndView deleteUser(@PathVariable Long id, ModelAndView vm) {
+        userService.delete(id);
+        vm.setViewName("usersAdminList");
+        vm.addObject("users", userService.findAll());
+        return vm;
+    }
 }
