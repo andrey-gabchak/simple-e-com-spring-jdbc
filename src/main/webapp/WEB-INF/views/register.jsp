@@ -18,6 +18,9 @@
     <springForm:errors path="verifiedPassword" cssClass="error"/>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+
+    <br>
+    <a class="btn btn-link" href="/login">back to login</a>
 </springForm:form>
 </body>
 </html>

@@ -95,4 +95,9 @@ public class UserController {
         vm.addObject("users", userService.findAll());
         return vm;
     }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "login";
+    }
 }
