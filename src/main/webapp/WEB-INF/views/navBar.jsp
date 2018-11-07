@@ -29,6 +29,9 @@
             <form class="form-inline mt-2 mt-md-0" action="/login">
                 <button class="btn btn-outline-success my-2 my-sm-0">Sign in</button>
             </form>
+            <form class="form-inline mt-2 mt-md-0" style="margin-left: 10px" action="/logout">
+                <button class="btn btn-outline-secondary my-2 my-sm-0">Logout</button>
+            </form>
         </div>
     </nav>
 </header>
