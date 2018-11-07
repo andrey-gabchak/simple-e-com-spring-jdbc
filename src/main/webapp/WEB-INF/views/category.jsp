@@ -7,7 +7,7 @@
 
 <div class="album py-5 bg-light"></div>
 <div class="container">
-    <h1 class="display-4">${category.name}</h1>
+    <h1 class="display-4" style="margin-top: 250px">${category.name}</h1>
 
     <div class="row">
         <c:forEach var="p" items="${category.products}">
