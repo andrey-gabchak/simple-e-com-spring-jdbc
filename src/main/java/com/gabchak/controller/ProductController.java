@@ -49,6 +49,13 @@ public class ProductController {
         return vm;
     }
 
+    @PostMapping("/admin/products/delete_{id}")
+    public ModelAndView deleteProduct(@PathVariable Long id, ModelAndView vm) {
+        productDao.deleteById(id);
+        vm.setViewName("productAdminList");
+        vm.addObject("products", productDao.findAll());
+        return vm;
+    }
 
     //TODO: admin: add product page
     //TODO: admin: remove product (POST)
