@@ -2,17 +2,27 @@ package com.gabchak.model;
 
 import com.gabchak.controller.external.model.RegisterUserDto;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "USERS")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @Column(name = "EMAIL")
     private String email;
     @NotNull
+    @Column(name = "PASSWORD")
     private String password;
+    @Column(name = "FIRST_NAME")
     private String firstName;
+    @Column(name = "LAST_NAME")
     private String lastName;
+    @Column(name = "TOKEN")
     private String token;
 
     public User(Long id, String email, String password, String firstName, String lastName, String token) {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -57,6 +58,7 @@ public class UserController {
     public ModelAndView login(@ModelAttribute(value = "user") User user, ModelAndView vm) {
         return userService.getUserByEmail(user.getEmail())
                 .map(r -> userService.verifyPassword(r, user))
+                .filter(Optional::isPresent)
                 .map(r -> {
                     vm.setViewName("home");
                     return vm;
