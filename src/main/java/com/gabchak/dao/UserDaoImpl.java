@@ -29,6 +29,5 @@ public class UserDaoImpl implements UserDao {
         return Optional.ofNullable(jdbcTemplate.queryForObject(
                 "SELECT ID, EMAIL, TOKEN, PASSWORD, FIRST_NAME, LAST_NAME FROM USERS WHERE EMAIL = ?",
                 new Object[] {email}, new BeanPropertyRowMapper<>(User.class)));
-        //new Object[] {email}, new BeanPropertyRowMapper<>(User.class) костыли, так нормально не работало
     }
 }

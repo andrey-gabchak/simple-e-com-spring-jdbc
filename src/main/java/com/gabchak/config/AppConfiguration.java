@@ -45,7 +45,6 @@ public class AppConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-//    @DependsOn(value = "dataSource") можно установить зависимость от другого bean-a
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
