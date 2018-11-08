@@ -2,6 +2,7 @@ package com.gabchak.dao;
 
 import com.gabchak.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
@@ -12,8 +13,11 @@ public interface UserDao {
 
     void update(User user);
 
-    Optional<User> findById(Long id);
+    User findById(Long id);
 
     Optional<User> findByToken(String token);
 
+    List<User> findAll();
+
+    void delete(Long id);
 }

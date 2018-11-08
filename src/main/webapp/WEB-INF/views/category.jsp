@@ -1,9 +1,13 @@
 <%@include file="header.jsp" %>
-
+<head>
+    <title>${category.name}</title>
+</head>
 <body>
+<%@ include file="navBar.jsp"%>
+
 <div class="album py-5 bg-light"></div>
 <div class="container">
-    <h1 class="display-4">${category.name}</h1>
+    <h1 class="display-4" style="margin-top: 250px">${category.name}</h1>
 
     <div class="row">
         <c:forEach var="p" items="${category.products}">
@@ -15,7 +19,7 @@
                             <a href="<c:url value="/${category.name}/product_${p.id}"/>"><c:out value="${p.name}"/></a>
                         </h3>
                         <h4>
-                            <small class="text-muted">${p.price}</small>
+                            <small class="text-muted">${p.price} $</small>
                         </h4>
                         <p>${p.description}</p>
                     </div>

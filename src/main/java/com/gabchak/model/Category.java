@@ -1,5 +1,7 @@
 package com.gabchak.model;
 
+import com.gabchak.controller.external.model.CategoryDto;
+
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -26,6 +28,14 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
+    }
+
+    public static Category of(CategoryDto categoryDto) {
+        return new Category(
+                categoryDto.getId(),
+                categoryDto.getName(),
+                categoryDto.getProducts()
+                );
     }
 
     public Long getId() {
