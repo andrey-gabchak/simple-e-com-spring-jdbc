@@ -15,6 +15,11 @@
             <p class="display-2">Sorry we can't find the page</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="display-2">${exception}</p>
+        </div>
+    </div>
 </div>
 </body>
 </html>
