@@ -2,7 +2,7 @@ package com.gabchak.model;
 
 import java.util.Date;
 
-public class Orders {
+public class Order {
 
     private Long orderId;
     private User customerId;
@@ -12,10 +12,10 @@ public class Orders {
     private Product product;
     private Integer quantity;
 
-    public Orders() {
+    public Order() {
     }
 
-    public Orders(Long orderId, User customerId, Date orderDate, String comment, Long orderDetailsId, Product product, Integer quantity) {
+    public Order(Long orderId, User customerId, Date orderDate, String comment, Long orderDetailsId, Product product, Integer quantity) {
         this.orderId = orderId;
         this.customerId = customerId;
         this.orderDate = orderDate;
