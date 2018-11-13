@@ -2,6 +2,7 @@ package com.gabchak.model;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 public class Order {
 
@@ -11,19 +12,19 @@ public class Order {
     private String orderComment;
     private Double orderAmount;
     private List<Product> products;
-    private Integer quantity;
+    private Map<Long, Integer> productsQuantity;
 
     public Order() {
     }
 
-    public Order(Long orderId, User customer, Calendar orderDate, String orderComment, Double orderAmount, List<Product> products, Integer quantity) {
+    public Order(Long orderId, User customer, Calendar orderDate, String orderComment, Double orderAmount, List<Product> products, Map<Long, Integer> productsQuantity) {
         this.orderId = orderId;
         this.customer = customer;
         this.orderDate = orderDate;
         this.orderComment = orderComment;
         this.orderAmount = orderAmount;
         this.products = products;
-        this.quantity = quantity;
+        this.productsQuantity = productsQuantity;
     }
 
     public Long getOrderId() {
@@ -66,12 +67,12 @@ public class Order {
         this.products = products;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Map<Long, Integer> getProductsQuantity() {
+        return productsQuantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setProductsQuantity(Map<Long, Integer> productsQuantity) {
+        this.productsQuantity = productsQuantity;
     }
 
     public Double getOrderAmount() {
