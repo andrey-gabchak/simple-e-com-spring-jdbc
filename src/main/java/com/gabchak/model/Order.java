@@ -1,27 +1,28 @@
 package com.gabchak.model;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.List;
 
 public class Order {
 
     private Long orderId;
-    private User customerId;
-    private Date orderDate;
-    private String comment;
-    private Long orderDetailsId;
-    private Product product;
+    private User customer;
+    private Calendar orderDate;
+    private String orderComment;
+    private Double orderAmount;
+    private List<Product> products;
     private Integer quantity;
 
     public Order() {
     }
 
-    public Order(Long orderId, User customerId, Date orderDate, String comment, Long orderDetailsId, Product product, Integer quantity) {
+    public Order(Long orderId, User customer, Calendar orderDate, String orderComment, Double orderAmount, List<Product> products, Integer quantity) {
         this.orderId = orderId;
-        this.customerId = customerId;
+        this.customer = customer;
         this.orderDate = orderDate;
-        this.comment = comment;
-        this.orderDetailsId = orderDetailsId;
-        this.product = product;
+        this.orderComment = orderComment;
+        this.orderAmount = orderAmount;
+        this.products = products;
         this.quantity = quantity;
     }
 
@@ -33,44 +34,36 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public User getCustomerId() {
-        return customerId;
+    public User getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(User customerId) {
-        this.customerId = customerId;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
-    public Date getOrderDate() {
+    public Calendar getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Calendar orderDate) {
         this.orderDate = orderDate;
     }
 
-    public String getComment() {
-        return comment;
+    public String getOrderComment() {
+        return orderComment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setOrderComment(String orderComment) {
+        this.orderComment = orderComment;
     }
 
-    public Long getOrderDetailsId() {
-        return orderDetailsId;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setOrderDetailsId(Long orderDetailsId) {
-        this.orderDetailsId = orderDetailsId;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public Integer getQuantity() {
@@ -79,5 +72,13 @@ public class Order {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getOrderAmount() {
+        return orderAmount;
+    }
+
+    public void setOrderAmount(Double orderAmount) {
+        this.orderAmount = orderAmount;
     }
 }
