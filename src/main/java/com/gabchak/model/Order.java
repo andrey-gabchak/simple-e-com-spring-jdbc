@@ -91,4 +91,8 @@ public class Order {
     public void setOrderAmount(Double orderAmount) {
         this.orderAmount = orderAmount;
     }
+
+    public void addProduct(Product product) {
+        products.add(product);
+    }
 }
