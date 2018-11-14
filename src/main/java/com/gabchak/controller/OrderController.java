@@ -46,4 +46,16 @@ public class OrderController {
     public String showCartPage() {
         return "cart";
     }
+
+    @PostMapping("/cart/confirm")
+    public ModelAndView confirmOrder(ModelAndView vm) {
+        if (order == null) {
+            vm.setViewName("errorEmptyOrder");
+            return vm;
+        }
+        orderService.create(order);
+        vm.setViewName("thanksForOrder");
+        return vm;
+
+    }
 }
