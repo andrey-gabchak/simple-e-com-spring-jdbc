@@ -1,16 +1,22 @@
 package com.gabchak.controller;
 
+import com.gabchak.model.Order;
+import com.gabchak.model.Product;
 import com.gabchak.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class OrderController {
 
     private OrderService orderService;
+    private Order order;
 
     @Autowired
     public OrderController(OrderService orderService) {
@@ -24,4 +30,17 @@ public class OrderController {
         vm.addObject("orders", orderService.findAll());
         return vm;
     }
+
+    @PostMapping("/buy_{id}")
+    public ModelAndView addToCart(@PathVariable Long id, Product product, ModelAndView vm) {
+        if (order == null) {
+            order = new Order();
+        }
+        order.addProduct(product);
+        vm.setViewName("product");
+        vm.addObject("order", order);
+        return vm;
+    }
+
+
 }
