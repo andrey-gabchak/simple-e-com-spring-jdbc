@@ -14,11 +14,12 @@ public class Order {
     private Double orderAmount;
     private List<Product> products;
     private Map<Long, Integer> productsQuantity;
+    private boolean status;
 
     public Order() {
     }
 
-    public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount, List<Product> products, Map<Long, Integer> productsQuantity) {
+    public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount, List<Product> products, Map<Long, Integer> productsQuantity, boolean status) {
         this.orderId = orderId;
         this.customer = customer;
         this.orderDate = orderDate;
@@ -26,6 +27,7 @@ public class Order {
         this.orderAmount = orderAmount;
         this.products = products;
         this.productsQuantity = productsQuantity;
+        this.status = status;
     }
 
     public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount) {
@@ -90,6 +92,14 @@ public class Order {
 
     public void setOrderAmount(Double orderAmount) {
         this.orderAmount = orderAmount;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public void addProduct(Product product) {
