@@ -180,13 +180,11 @@ public class OrderDaoImpl implements OrderDao {
                     ));
 
             Set<Long> keys = quantity.keySet();
-            List<Product> products = new ArrayList<>();
             for (Long key : keys) {
-                products.add(productDao.findById(id));
+                order.addProduct(productDao.findById(id));
             }
 
             order.setProductsQuantity(quantity);
-            order.setProducts(products);
         }
 
         return order;
