@@ -42,5 +42,10 @@ public class OrderController {
         return vm;
     }
 
-
+    @GetMapping("/cart")
+    public ModelAndView showCartPage(ModelAndView vm) {
+        vm.setViewName("cart");
+        vm.addObject("order", order);
+        return vm;
+    }
 }
