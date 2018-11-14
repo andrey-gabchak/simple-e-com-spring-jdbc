@@ -28,6 +28,14 @@ public class Order {
         this.productsQuantity = productsQuantity;
     }
 
+    public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount) {
+        this.orderId = orderId;
+        this.customer = customer;
+        this.orderDate = orderDate;
+        this.orderComment = orderComment;
+        this.orderAmount = orderAmount;
+    }
+
     public Long getOrderId() {
         return orderId;
     }
