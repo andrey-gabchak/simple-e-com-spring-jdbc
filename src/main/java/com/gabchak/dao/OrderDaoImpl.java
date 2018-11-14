@@ -1,7 +1,6 @@
 package com.gabchak.dao;
 
 import com.gabchak.model.Order;
-import com.gabchak.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
