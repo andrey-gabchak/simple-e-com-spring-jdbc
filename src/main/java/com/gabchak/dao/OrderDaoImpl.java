@@ -121,7 +121,33 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void delete(Long id) {
+        jdbcTemplate.update(connection -> {
+            PreparedStatement orderStatement = null;
+            PreparedStatement orderToProductStatement;
+            try {
+                connection.setAutoCommit(false);
 
+                orderToProductStatement = connection.prepareStatement(
+                        "DELETE FROM ORDER_TO_PRODUCT WHERE FK_ORDER_ID = ?");
+                orderToProductStatement.setLong(1, id);
+                orderToProductStatement.executeUpdate();
+
+                orderStatement = connection.prepareStatement(
+                        "DELETE FROM ORDERS WHERE ORDER_ID = ?");
+                orderStatement.setLong(1, id);
+                orderStatement.executeUpdate();
+
+                connection.commit();
+            } catch (SQLException e) {
+                try {
+                    connection.rollback();
+                } catch (SQLException el) {
+                    el.printStackTrace();
+                    throw new RuntimeException(el.getMessage());
+                }
+            }
+            return orderStatement;
+        });
     }
 
     @Override
