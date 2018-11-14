@@ -1,5 +1,6 @@
 package com.gabchak.model;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,7 @@ public class Order {
 
     private Long orderId;
     private User customer;
-    private Calendar orderDate;
+    private LocalDate orderDate;
     private String orderComment;
     private Double orderAmount;
     private List<Product> products;
@@ -17,7 +18,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Long orderId, User customer, Calendar orderDate, String orderComment, Double orderAmount, List<Product> products, Map<Long, Integer> productsQuantity) {
+    public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount, List<Product> products, Map<Long, Integer> productsQuantity) {
         this.orderId = orderId;
         this.customer = customer;
         this.orderDate = orderDate;
@@ -43,11 +44,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public Calendar getOrderDate() {
+    public LocalDate getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Calendar orderDate) {
+    public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
 
