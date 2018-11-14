@@ -58,6 +58,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByToken(String token) {
+        return userDao.findByToken(token);
+    }
+
+    @Override
     public Optional<User> getUserByEmail(String email) {
         return userDao.findByEmail(email);
     }

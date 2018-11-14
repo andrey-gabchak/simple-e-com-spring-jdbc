@@ -22,4 +22,6 @@ public interface UserService {
     void delete(Long id);
 
     void logout();
+
+    Optional<User> findByToken(String token);
 }
