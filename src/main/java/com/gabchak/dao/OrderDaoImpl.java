@@ -1,6 +1,7 @@
 package com.gabchak.dao;
 
 import com.gabchak.model.Order;
+import com.gabchak.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -8,16 +9,23 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
 
     private JdbcTemplate jdbcTemplate;
+    private ProductDao productDao;
+    private UserDao userDao;
 
     @Autowired
-    public OrderDaoImpl(JdbcTemplate jdbcTemplate) {
+    public OrderDaoImpl(JdbcTemplate jdbcTemplate, ProductDao productDao, UserDao userDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.productDao = productDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -152,7 +160,36 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order findById(Long id) {
-        return null;
+
+        Order order = jdbcTemplate.queryForObject(
+                "SELECT ORDER_ID, CUSTOMER_ID, ORDER_DATE, ORDER_AMOUNT, ORDER_COMMENT FROM ORDERS WHERE ORDER_ID = ?",
+                new Object[]{id}, (rs, rowNum) -> new Order(
+                        rs.getLong("ORDER_ID"),
+                        userDao.findById(rs.getLong("CUSTOMER_ID")),
+                        rs.getDate("ORDER_DATE").toLocalDate(),
+                        rs.getString("ORDER_COMMENT"),
+                        rs.getDouble("ORDER_AMOUNT")
+                ));
+
+        if (order != null) {
+            HashMap<Long, Integer> quantity = new HashMap<>();
+            jdbcTemplate.query("SELECT FK_PRODUCT_ID, PRODUCT_QUANTITY FROM ORDER_TO_PRODUCT WHERE FK_ORDER_ID = ?",
+                    new Object[]{id}, (rs, rowNum) -> quantity.put(
+                            rs.getLong("FK_PRODUCT_ID"),
+                            rs.getInt("PRODUCT_QUANTITY")
+                    ));
+
+            Set<Long> keys = quantity.keySet();
+            List<Product> products = new ArrayList<>();
+            for (Long key : keys) {
+                products.add(productDao.findById(id));
+            }
+
+            order.setProductsQuantity(quantity);
+            order.setProducts(products);
+        }
+
+        return order;
     }
 
     @Override
