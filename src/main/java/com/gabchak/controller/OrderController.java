@@ -56,6 +56,12 @@ public class OrderController {
         orderService.create(order);
         vm.setViewName("thanksForOrder");
         return vm;
+    }
 
+    @GetMapping("/admin/orders")
+    public ModelAndView showOrders(ModelAndView vm) {
+        vm.setViewName("orders");
+        vm.addObject("orders", orderService.findAll());
+        return vm;
     }
 }
