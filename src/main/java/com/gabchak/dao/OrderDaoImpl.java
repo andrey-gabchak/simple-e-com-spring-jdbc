@@ -26,10 +26,10 @@ public class OrderDaoImpl implements OrderDao {
             PreparedStatement orderStatement = null;
             PreparedStatement productsStatement;
             try {
+                connection.setAutoCommit(false);
                 orderStatement = connection
                         .prepareStatement("INSERT INTO ORDERS (CUSTOMER_ID, ORDER_DATE, ORDER_AMOUNT, ORDER_COMMENT) VALUES (?, ?, ?, ?);",
                                 Statement.RETURN_GENERATED_KEYS);
-                connection.setAutoCommit(false);
                 orderStatement.setLong(1, order.getCustomer().getId());
 
                 LocalDate localDate = LocalDateTime.now().toLocalDate();
@@ -47,17 +47,17 @@ public class OrderDaoImpl implements OrderDao {
                     connection.rollback();
                 }
 
-                productsStatement = connection.prepareStatement(
-                        "INSERT INTO ORDER_TO_PRODUCT (FK_ORDER_ID, FK_PRODUCT_ID, PRODUCT_QUANTITY) VALUES (?, ?, ?)");
                 if (orderId != null) {
                     for (int i = 0; i < order.getProducts().size(); i++) {
+                        productsStatement = connection.prepareStatement(
+                                "INSERT INTO ORDER_TO_PRODUCT (FK_ORDER_ID, FK_PRODUCT_ID, PRODUCT_QUANTITY) VALUES (?, ?, ?)");
                         productsStatement.setLong(1, orderId);
                         long productId = order.getProducts().get(i).getId();
                         productsStatement.setLong(2, productId);
                         productsStatement.setInt(3, order.getProductsQuantity().get(productId));
+                        productsStatement.executeUpdate();
                     }
                 }
-                productsStatement.executeUpdate();
                 connection.commit();
             } catch (SQLException e) {
                 try {
@@ -74,7 +74,49 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void update(Order order) {
+        jdbcTemplate.update(connection -> {
+            PreparedStatement orderStatement = null;
+            PreparedStatement orderToProductStatement;
+            try {
+                connection.setAutoCommit(false);
 
+                orderStatement = connection.prepareStatement(
+                        "UPDATE ORDERS SET CUSTOMER_ID = ?, ORDER_DATE = ?, ORDER_AMOUNT = ?, ORDER_COMMENT = ? WHERE ORDER_ID =?",
+                        Statement.RETURN_GENERATED_KEYS);
+
+                orderStatement.setLong(1, order.getCustomer().getId());
+                orderStatement.setDate(2, Date.valueOf(order.getOrderDate()));
+                orderStatement.setDouble(3, order.getOrderAmount());
+                orderStatement.setString(4, order.getOrderComment());
+                orderStatement.setLong(5, order.getOrderId());
+
+                orderStatement.executeUpdate();
+
+                ResultSet generatedKeys = orderStatement.getGeneratedKeys();
+
+                if (generatedKeys.next()) {
+                    for (int i = 0; i < order.getProducts().size(); i++) {
+                        orderToProductStatement = connection.prepareStatement(
+                                "UPDATE ORDER_TO_PRODUCT SET FK_PRODUCT_ID = ?, PRODUCT_QUANTITY = ? WHERE FK_ORDER_ID = ?");
+                        Long id = order.getProducts().get(i).getId();
+                        orderToProductStatement.setLong(1, id);
+                        orderToProductStatement.setInt(2, order.getProductsQuantity().get(id));
+                        orderToProductStatement.setLong(3, order.getOrderId());
+                        orderToProductStatement.executeUpdate();
+                    }
+                }
+
+                connection.commit();
+            } catch (SQLException e) {
+                try {
+                    connection.rollback();
+                } catch (SQLException el) {
+                    el.printStackTrace();
+                    throw new RuntimeException(el.getMessage());
+                }
+            }
+            return orderStatement;
+        });
     }
 
     @Override
