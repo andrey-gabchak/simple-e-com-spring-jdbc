@@ -23,5 +23,5 @@ public interface UserService {
 
     void logout();
 
-    Optional<User> findByToken(String token);
+    User findByToken(String token);
 }

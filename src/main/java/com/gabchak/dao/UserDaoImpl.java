@@ -54,9 +54,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findByToken(String token) {
-        return Optional.ofNullable(jdbcTemplate.queryForObject("SELECT EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE TOKEN = ?",
-                new Object[] {token}, new BeanPropertyRowMapper<>(User.class)));
+    public User findByToken(String token) {
+        return jdbcTemplate.queryForObject("SELECT EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE TOKEN = ?",
+                new Object[] {token}, new BeanPropertyRowMapper<>(User.class));
     }
 
     @Override

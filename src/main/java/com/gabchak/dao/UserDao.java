@@ -15,7 +15,7 @@ public interface UserDao {
 
     User findById(Long id);
 
-    Optional<User> findByToken(String token);
+    User findByToken(String token);
 
     List<User> findAll();
 
