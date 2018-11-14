@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 @Controller
 public class OrderController {
 
@@ -69,6 +67,14 @@ public class OrderController {
     public ModelAndView showEditOrderPage(@PathVariable Long id, ModelAndView vm) {
         vm.setViewName("orderEdit");
         vm.addObject("order", orderService.findById(id));
+        return vm;
+    }
+
+    @PostMapping("/admin/orders/save_{id}")
+    public ModelAndView saveOrder(@PathVariable Long id, Order order, ModelAndView vm) {
+        vm.setViewName("orders");
+        orderService.update(order);
+        vm.addObject("orders", orderService.findAll());
         return vm;
     }
 }
