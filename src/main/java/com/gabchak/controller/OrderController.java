@@ -48,7 +48,7 @@ public class OrderController {
     }
 
     @PostMapping("/cart/confirm")
-    public ModelAndView confirmOrder(ModelAndView vm) {
+    public ModelAndView confirmOrder(Order order, ModelAndView vm) {
         if (order == null) {
             vm.setViewName("errorEmptyOrder");
             return vm;
