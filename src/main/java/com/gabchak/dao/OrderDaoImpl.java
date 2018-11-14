@@ -194,6 +194,14 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Order> findAll() {
-        return null;
+        return jdbcTemplate.query(
+                "SELECT ORDER_ID, CUSTOMER_ID, ORDER_AMOUNT, ORDER_COMMENT, ORDER_DATE FROM ORDERS",
+                (rs, rowNum) -> new Order(
+                        rs.getLong("ORDER_ID"),
+                        userDao.findById(rs.getLong("CUSTOMER_ID")),
+                        rs.getDate("ORDER_DATE").toLocalDate(),
+                        rs.getString("ORDER_COMMENT"),
+                        rs.getDouble("ORDER_AMOUNT")
+                ));
     }
 }
