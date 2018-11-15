@@ -190,6 +190,26 @@ public class OrderDaoImpl implements OrderDao {
                 ));
     }
 
+    @Override
+    public Order findOpenOrderByUserId(Long id) {
+        Order order = jdbcTemplate.queryForObject(
+                "SELECT ORDER_ID, CUSTOMER_ID, ORDER_DATE, ORDER_AMOUNT, ORDER_COMMENT FROM ORDERS WHERE CUSTOMER_ID = ?",
+                new Object[]{id}, (rs, rowNum) -> new Order(
+                        rs.getLong("ORDER_ID"),
+                        userDao.findById(rs.getLong("CUSTOMER_ID")),
+                        rs.getDate("ORDER_DATE").toLocalDate(),
+                        rs.getString("ORDER_COMMENT"),
+                        rs.getDouble("ORDER_AMOUNT")
+                ));
+
+        if (order != null) {
+            order = getProductAndQuantity(order);
+        }
+
+        return order;
+    }
+
+
     private Order getProductAndQuantity(Order order) {
         Map<Long, Integer> quantity = new HashMap<>();
         Long orderId = order.getOrderId();
