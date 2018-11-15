@@ -76,7 +76,10 @@ public class OrderController {
             vm.setViewName("errorEmptyOrder");
             return vm;
         }
-        orderService.create(order);
+
+        order.setStatus(true);
+        orderService.update(order);
+
         vm.setViewName("thanksForOrder");
         return vm;
     }
