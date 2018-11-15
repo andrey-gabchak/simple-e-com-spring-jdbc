@@ -1,9 +1,17 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@include file="header.jsp" %>
+
 <head>
     <title>Home page</title>
 </head>
 <body>
-    <h1>Hello from Spring!</h1>
+<%@ include file="navBar.jsp"%>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-4">Hello from Spring!</h1>
+        </div>
+    </div>
+</div>
 </body>
 </html>
