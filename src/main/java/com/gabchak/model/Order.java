@@ -107,11 +107,6 @@ public class Order {
     }
 
     public void increaseQuantity(Long id, Integer quantity) {
-        Integer prevQuantity = productsQuantity.get(id);
-        if (prevQuantity == null) {
-            productsQuantity.put(id, quantity);
-        } else {
-            productsQuantity.put(id, prevQuantity + quantity);
-        }
+        productsQuantity.merge(id, quantity, (a, b) -> a + b);
     }
 }
