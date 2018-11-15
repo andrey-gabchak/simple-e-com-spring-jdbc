@@ -105,4 +105,13 @@ public class Order {
     public void addProduct(Product product) {
         products.add(product);
     }
+
+    public void increaseQuantity(Long id, Integer quantity) {
+        Integer prevQuantity = productsQuantity.get(id);
+        if (prevQuantity == null) {
+            productsQuantity.put(id, quantity);
+        } else {
+            productsQuantity.put(id, prevQuantity + quantity);
+        }
+    }
 }
