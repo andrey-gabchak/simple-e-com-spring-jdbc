@@ -201,7 +201,7 @@ public class OrderDaoImpl implements OrderDao {
     public Order findOpenOrderByUser(User user) {
         Long id = user.getId();
         Order order = jdbcTemplate.queryForObject(
-                "SELECT ORDER_ID, CUSTOMER_ID, ORDER_DATE, ORDER_AMOUNT, ORDER_COMMENT FROM ORDERS WHERE CUSTOMER_ID = ?",
+                "SELECT ORDER_ID, CUSTOMER_ID, ORDER_DATE, ORDER_AMOUNT, ORDER_COMMENT FROM ORDERS WHERE CUSTOMER_ID = ? AND ORDER_STATUS = FALSE",
                 new Object[]{id}, (rs, rowNum) -> new Order(
                         rs.getLong("ORDER_ID"),
                         user,
