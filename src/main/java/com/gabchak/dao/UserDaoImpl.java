@@ -33,7 +33,14 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> findByEmail(String email) {
         return Optional.ofNullable(jdbcTemplate.queryForObject(
                 "SELECT ID, EMAIL, TOKEN, PASSWORD, FIRST_NAME, LAST_NAME FROM USERS WHERE EMAIL = ?",
-                new Object[] {email}, new BeanPropertyRowMapper<>(User.class)));
+                new Object[] {email}, (rs, rowNum) -> new User(
+                        rs.getLong("ID"),
+                        rs.getString("EMAIL"),
+                        rs.getString("PASSWORD"),
+                        rs.getString("FIRST_NAME"),
+                        rs.getString("LAST_NAME"),
+                        rs.getString("TOKEN")
+                )));
     }
 
     @Override
