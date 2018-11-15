@@ -37,24 +37,8 @@ public class OrderController {
 
     @PostMapping("/buy_{id}")
     public ModelAndView addToCart(@PathVariable Long id, HttpServletRequest request, Product product, Integer quantity, ModelAndView vm) {
-        Cookie[] cookies = request.getCookies();
 
-        String token = null;
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("MATE")) {
-                    token = cookie.getValue();
-                }
-            }
-        }
-
-        User user = null;
-
-        if (token != null) {
-            user = userService.findByToken(token);
-        }
-
+        User user = findUserByCookies(request);
         Order order = orderService.findOpenOrderByUser(user);
 
         if (order == null) {
@@ -112,5 +96,21 @@ public class OrderController {
         orderService.update(order);
         vm.addObject("orders", orderService.findAll());
         return vm;
+    }
+
+    private User findUserByCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+
+        String token = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("MATE")) {
+                    token = cookie.getValue();
+                }
+            }
+        }
+
+        return token != null ? userService.findByToken(token) : null;
     }
 }
