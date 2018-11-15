@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Repository
@@ -170,19 +171,7 @@ public class OrderDaoImpl implements OrderDao {
                 ));
 
         if (order != null) {
-            HashMap<Long, Integer> quantity = new HashMap<>();
-            jdbcTemplate.query("SELECT FK_PRODUCT_ID, PRODUCT_QUANTITY FROM ORDER_TO_PRODUCT WHERE FK_ORDER_ID = ?",
-                    new Object[]{id}, (rs, rowNum) -> quantity.put(
-                            rs.getLong("FK_PRODUCT_ID"),
-                            rs.getInt("PRODUCT_QUANTITY")
-                    ));
-
-            Set<Long> keys = quantity.keySet();
-            for (Long key : keys) {
-                order.addProduct(productDao.findById(id));
-            }
-
-            order.setProductsQuantity(quantity);
+            order = getProductAndQuantity(order);
         }
 
         return order;
@@ -199,5 +188,23 @@ public class OrderDaoImpl implements OrderDao {
                         rs.getString("ORDER_COMMENT"),
                         rs.getDouble("ORDER_AMOUNT")
                 ));
+    }
+
+    private Order getProductAndQuantity(Order order) {
+        Map<Long, Integer> quantity = new HashMap<>();
+        Long orderId = order.getOrderId();
+        jdbcTemplate.query("SELECT FK_PRODUCT_ID, PRODUCT_QUANTITY FROM ORDER_TO_PRODUCT WHERE FK_ORDER_ID = ?",
+                new Object[]{orderId}, (rs, rowNum) -> quantity.put(
+                        rs.getLong("FK_PRODUCT_ID"),
+                        rs.getInt("PRODUCT_QUANTITY")
+                ));
+
+        Set<Long> keys = quantity.keySet();
+        for (Long key : keys) {
+            order.addProduct(productDao.findById(orderId));
+        }
+
+        order.setProductsQuantity(quantity);
+        return order;
     }
 }
