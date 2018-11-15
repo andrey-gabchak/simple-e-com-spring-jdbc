@@ -61,8 +61,13 @@ public class OrderController {
     }
 
     @GetMapping("/cart")
-    public String showCartPage() {
-        return "cart";
+    public ModelAndView showCartPage(HttpServletRequest request, ModelAndView vm) {
+        User user = findUserByCookies(request);
+        Order order = orderService.findOpenOrderByUser(user);
+
+        vm.setViewName("cart");
+        vm.addObject("order", order);
+        return vm;
     }
 
     @PostMapping("/cart/confirm")
