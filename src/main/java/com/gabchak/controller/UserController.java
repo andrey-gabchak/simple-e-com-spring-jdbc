@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -52,10 +54,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(@ModelAttribute(value = "user") User user, ModelAndView vm) {
+    public ModelAndView login(@ModelAttribute(value = "user") User user, ModelAndView vm, HttpServletResponse response) {
         return userService.getUserByEmail(user.getEmail())
                 .map(r -> userService.verifyPassword(r, user))
                 .map(r -> {
+                    Cookie cookie = new Cookie("MATE", user.getToken());
+                    response.addCookie(cookie);
                     vm.setViewName("home");
                     return vm;
                 })
