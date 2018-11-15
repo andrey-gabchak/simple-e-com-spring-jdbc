@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid RegisterUserDto userDto, BindingResult bindingResult) {
+    public String register(@Valid RegisterUserDto userDto, BindingResult bindingResult, HttpServletResponse response) {
 
         if (bindingResult.hasErrors()) {
             return "register";
@@ -49,6 +49,8 @@ public class UserController {
 
         User user = User.of(userDto);
         userService.addUser(user);
+        User userFromDB = userService.getUserByEmail(user.getEmail()).get();
+        response.addCookie(new Cookie("MATE", userFromDB.getToken()));
 
         return "home";
     }
@@ -58,7 +60,8 @@ public class UserController {
         return userService.getUserByEmail(user.getEmail())
                 .map(r -> userService.verifyPassword(r, user))
                 .map(r -> {
-                    Cookie cookie = new Cookie("MATE", user.getToken());
+                    String token = userService.getUserByEmail(user.getEmail()).get().getToken();
+                    Cookie cookie = new Cookie("MATE", token);
                     response.addCookie(cookie);
                     vm.setViewName("home");
                     return vm;
