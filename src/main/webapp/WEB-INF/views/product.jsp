@@ -15,9 +15,9 @@
         <p class="col-6"> id = ${product.id}</p>
     </div>
     <div class="row justify-content-end">
-        <form class="col-6" action="#">
-            <button type="button" class="btn btn-success">Buy</button>
-        </form>
+        <springForm:form class="col-6" action="/buy_${product.id}" method="post" modelAttribute="product">
+            <springForm:button type="submit" class="btn btn-success">Buy</springForm:button>
+        </springForm:form>
     </div>
     <div class="row" style="margin-top: 50px">
         <p class="col-12">
