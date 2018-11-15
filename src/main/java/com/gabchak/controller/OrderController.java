@@ -2,7 +2,9 @@ package com.gabchak.controller;
 
 import com.gabchak.model.Order;
 import com.gabchak.model.Product;
+import com.gabchak.model.User;
 import com.gabchak.service.OrderService;
+import com.gabchak.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +12,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class OrderController {
 
     private OrderService orderService;
-    private Order order;
+    private UserService userService;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, UserService userService) {
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @PostMapping("/admin/orders/delete_{id}")
@@ -30,11 +36,41 @@ public class OrderController {
     }
 
     @PostMapping("/buy_{id}")
-    public ModelAndView addToCart(@PathVariable Long id, Product product, ModelAndView vm) {
+    public ModelAndView addToCart(@PathVariable Long id, HttpServletRequest request, Product product, Integer quantity, ModelAndView vm) {
+        Cookie[] cookies = request.getCookies();
+
+        String token = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("MATE")) {
+                    token = cookie.getValue();
+                }
+            }
+        }
+
+        User user = null;
+
+        if (token != null) {
+            user = userService.findByToken(token);
+        }
+
+        Order order = orderService.findOpenOrderByUser(user);
+
         if (order == null) {
             order = new Order();
+            order.setCustomer(user);
+            order.setStatus(false);
+            order.setOrderAmount(product.getPrice());
+            order.increaseQuantity(product.getId(), quantity);
+            orderService.create(order);
+        } else {
+            order.addProduct(product);
+            order.setOrderAmount(order.getOrderAmount() + product.getPrice());
+            order.increaseQuantity(product.getId(), quantity);
+            orderService.update(order);
         }
-        order.addProduct(product);
+
         vm.setViewName("product");
         vm.addObject("order", order);
         return vm;
