@@ -2,6 +2,7 @@ package com.gabchak.service;
 
 import com.gabchak.dao.OrderDao;
 import com.gabchak.model.Order;
+import com.gabchak.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findAll() {
         return orderDao.findAll();
+    }
+
+    @Override
+    public Order findOpenOrderByUserId(Long id) {
+        return orderDao.findOpenOrderByUserId(id);
+    }
+
+    @Override
+    public Order findOpenOrderByUser(User user) {
+        return orderDao.findOpenOrderByUser(user);
     }
 }

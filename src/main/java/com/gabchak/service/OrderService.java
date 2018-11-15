@@ -1,6 +1,7 @@
 package com.gabchak.service;
 
 import com.gabchak.model.Order;
+import com.gabchak.model.User;
 
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface OrderService {
 
     List<Order> findAll();
 
+    Order findOpenOrderByUserId(Long id);
+
+    Order findOpenOrderByUser(User user);
 }
