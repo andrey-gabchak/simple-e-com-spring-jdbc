@@ -1,6 +1,7 @@
 package com.gabchak.service;
 
 import com.gabchak.dao.UserDao;
+import com.gabchak.model.Role;
 import com.gabchak.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,12 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final UserDao userDao;
+
     @Autowired
-    private UserDao userDao;
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public void addUser(User user) {
@@ -24,9 +29,16 @@ public class UserServiceImpl implements UserService {
 
         user.setToken(getToken());
         user.setPassword(hashedPassword);
-//        user.addRole(getDefaultRole); //TODO: write set default role to user
+        user.addRole(getDefaultRole());
 
         userDao.addUser(user);
+    }
+
+    private Role getDefaultRole() {
+        Role role = new Role();
+        role.setId(3L);
+        role.setRoleName("USER");
+        return role;
     }
 
     @Override
@@ -59,9 +71,9 @@ public class UserServiceImpl implements UserService {
 
     private String bytesToHex(byte[] hash) {
         StringBuffer hexString = new StringBuffer();
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if(hex.length() == 1) hexString.append('0');
+        for (byte aHash : hash) {
+            String hex = Integer.toHexString(0xff & aHash);
+            if (hex.length() == 1) hexString.append('0');
             hexString.append(hex);
         }
         return hexString.toString();
