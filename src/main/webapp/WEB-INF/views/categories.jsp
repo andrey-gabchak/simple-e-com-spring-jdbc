@@ -14,8 +14,8 @@
     <div class="row justify-content-center">
         <div class="col-6 list-group text-center">
             <c:forEach var="c" items="${categories}">
-                <a href="<c:url value = "/${c.name}"/>" class="list-group-item list-group-item-action"><c:out
-                        value="${c.name}"/></a>
+                <a href="<c:url value = "/${c.categoryName}"/>" class="list-group-item list-group-item-action"><c:out
+                        value="${c.categoryName}"/></a>
             </c:forEach>
         </div>
     </div>

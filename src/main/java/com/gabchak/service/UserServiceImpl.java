@@ -24,6 +24,7 @@ public class UserServiceImpl implements UserService {
 
         user.setToken(getToken());
         user.setPassword(hashedPassword);
+//        user.addRole(getDefaultRole); //TODO: write set default role to user
 
         userDao.addUser(user);
     }

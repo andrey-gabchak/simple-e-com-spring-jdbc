@@ -25,8 +25,10 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> getByEmail(String email) {
-        return Optional.ofNullable((User) sessionFactory.getCurrentSession().createQuery(
-                "from Users where email =:email").setParameter("email", email)
-                .uniqueResult());
+        User user = (User) sessionFactory.getCurrentSession().createQuery(
+                "from User u join fetch u.roles where email =:email")
+                .setParameter("email", email)
+                .uniqueResult();
+        return Optional.ofNullable(user);
     }
 }

@@ -24,6 +24,13 @@ public class CategoryController {
         return vm;
     }
 
+    @GetMapping("/admin/categories")
+    public ModelAndView getAllCategoriesForAdmin(ModelAndView vm) {
+        vm.setViewName("categoryAdminList");
+        vm.addObject("categories", categoryService.findAll());
+        return vm;
+    }
+
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public ModelAndView getCategory(@RequestParam("c_id") Long id, ModelAndView vm) {
         Category category = categoryService.findById(id);

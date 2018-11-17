@@ -21,12 +21,15 @@ public class CategoryDaoImpl implements CategoryDao {
 
     @Override
     public List<Category> findAll() {
-        return sessionFactory.getCurrentSession().createNamedQuery("SELECT * FROM CATEGORIES", Category.class).list();
+        return sessionFactory.getCurrentSession().createNativeQuery("SELECT ID, CATEGORY_NAME FROM CATEGORIES",
+                Category.class).list();
     }
 
     @Override
     public Category findById(Long id) {
-        //TODO: realisation
-        return null;
+        return sessionFactory.getCurrentSession()
+                .createQuery("from category c join fetch c.productList where c.id =:id", Category.class)
+                .setParameter("ID", id)
+                .uniqueResult();
     }
 }
