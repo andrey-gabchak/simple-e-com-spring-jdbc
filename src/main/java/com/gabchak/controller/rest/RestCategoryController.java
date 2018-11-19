@@ -1,14 +1,15 @@
 package com.gabchak.controller.rest;
 
 import com.gabchak.controller.external.model.CategoryDto;
-import com.gabchak.model.Category;
 import com.gabchak.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -24,9 +25,11 @@ public class RestCategoryController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/rest/categories")
-    public List<CategoryDto> getAll() {
-        return categoryService.findAll().stream()
+    public ResponseEntity<List<CategoryDto>> getAll() {
+        return Optional.ofNullable(categoryService.findAll().stream()
                 .map(CategoryDto::of)
-                .collect(toList());
+                .collect(toList()))
+                .map(ResponseEntity::ok)
+                .orElseGet(ResponseEntity.notFound()::build);
     }
 }
