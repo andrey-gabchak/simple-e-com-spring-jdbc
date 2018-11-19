@@ -22,7 +22,7 @@ public class RestCategoryController {
         this.categoryService = categoryService;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/rest/categories")
     public List<CategoryDto> getAll() {
         return categoryService.findAll().stream()
