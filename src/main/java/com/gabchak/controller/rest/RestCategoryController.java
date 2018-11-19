@@ -4,6 +4,7 @@ import com.gabchak.controller.external.model.CategoryDto;
 import com.gabchak.model.Category;
 import com.gabchak.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ public class RestCategoryController {
         this.categoryService = categoryService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping("/rest/categories")
     public List<CategoryDto> getAll() {
         return categoryService.findAll().stream()
