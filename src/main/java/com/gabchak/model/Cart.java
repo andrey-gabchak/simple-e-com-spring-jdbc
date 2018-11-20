@@ -39,7 +39,7 @@ public class Cart {
         this.amount = amount;
     }
 
-    public Cart of(CartDto cartDto) {
+    public static Cart of(CartDto cartDto) {
         Cart cart = new Cart();
         cart.setUser(cartDto.getUser());
         cart.setAmount(cartDto.getAmount());

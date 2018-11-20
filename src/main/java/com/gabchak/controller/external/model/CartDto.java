@@ -41,7 +41,7 @@ public class CartDto {
         this.amount = amount;
     }
 
-    public CartDto of(Cart cart) {
+    public static CartDto of(Cart cart) {
         CartDto cartDto = new CartDto();
         cartDto.setAmount(cart.getAmount());
         cartDto.setProducts(cart.getProducts());
