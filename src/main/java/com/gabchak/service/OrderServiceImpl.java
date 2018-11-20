@@ -43,13 +43,4 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.findAll();
     }
 
-    @Override
-    public Order findOpenOrderByUserId(Long id) {
-        return orderDao.findOpenOrderByUserId(id);
-    }
-
-    @Override
-    public Order findOpenOrderByUser(User user) {
-        return orderDao.findOpenOrderByUser(user);
-    }
 }
