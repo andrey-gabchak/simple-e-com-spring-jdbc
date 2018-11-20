@@ -6,13 +6,7 @@ import java.util.Map;
 public class Cart {
 
     private Map<Product, Integer> products = new HashMap<>();
-
-    public Cart(Map<Product, Integer> products) {
-        this.products = products;
-    }
-
-    public Cart() {
-    }
+    private User user;
 
     public void setProducts(Map<Product, Integer> products) {
         this.products = products;
@@ -24,5 +18,13 @@ public class Cart {
 
     public void addProduct(Product product, Integer quantity) {
         products.put(product, quantity);
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
