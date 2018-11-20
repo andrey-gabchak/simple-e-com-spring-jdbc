@@ -35,7 +35,7 @@ public class OrderController {
         return vm;
     }
 
-    @GetMapping("/admin/orders/{id}")
+    @GetMapping("/admin/orders/edit_{id}")
     public ModelAndView showEditOrderPage(@PathVariable Long id, ModelAndView vm) {
         vm.setViewName("orderEdit");
         vm.addObject("order", orderService.findById(id));
