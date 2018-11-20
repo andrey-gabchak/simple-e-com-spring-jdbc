@@ -19,16 +19,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addToCart(Long userId, Long productId, Integer quantity) {
-
+        cartDao.addToCart(userId, productId, quantity);
     }
 
     @Override
     public Map<Product, Integer> findAllUsersProducts(Long userId) {
-        return null;
+        return cartDao.findAllUsersProducts(userId);
     }
 
     @Override
     public void deleteProductById(Long userId, Long productId) {
-
+        cartDao.deleteProductById(userId, productId);
     }
 }
