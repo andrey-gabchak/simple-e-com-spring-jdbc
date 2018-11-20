@@ -1,8 +1,6 @@
 package com.gabchak.model;
 
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Map;
 
 public class Order {
@@ -12,22 +10,18 @@ public class Order {
     private LocalDate orderDate;
     private String orderComment;
     private Double orderAmount;
-    private List<Product> products;
-    private Map<Long, Integer> productsQuantity;
-    private boolean status;
+    private Map<Product, Integer> products;
 
     public Order() {
     }
 
-    public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount, List<Product> products, Map<Long, Integer> productsQuantity, boolean status) {
+    public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount, Map<Product, Integer> products) {
         this.orderId = orderId;
         this.customer = customer;
         this.orderDate = orderDate;
         this.orderComment = orderComment;
         this.orderAmount = orderAmount;
         this.products = products;
-        this.productsQuantity = productsQuantity;
-        this.status = status;
     }
 
     public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount) {
@@ -70,20 +64,12 @@ public class Order {
         this.orderComment = orderComment;
     }
 
-    public List<Product> getProducts() {
+    public Map<Product, Integer> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Map<Product, Integer> products) {
         this.products = products;
-    }
-
-    public Map<Long, Integer> getProductsQuantity() {
-        return productsQuantity;
-    }
-
-    public void setProductsQuantity(Map<Long, Integer> productsQuantity) {
-        this.productsQuantity = productsQuantity;
     }
 
     public Double getOrderAmount() {
@@ -94,19 +80,11 @@ public class Order {
         this.orderAmount = orderAmount;
     }
 
-    public boolean isStatus() {
-        return status;
+    public void addProduct(Product product, Integer quantity) {
+        products.put(product, quantity);
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public void addProduct(Product product) {
-        products.add(product);
-    }
-
-    public void increaseQuantity(Long id, Integer quantity) {
-        productsQuantity.merge(id, quantity, (a, b) -> a + b);
+    public void increaseQuantity(Product product, Integer quantity) {
+        products.merge(product, quantity, (a, b) -> a + b);
     }
 }
