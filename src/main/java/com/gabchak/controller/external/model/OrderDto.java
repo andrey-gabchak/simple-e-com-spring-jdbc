@@ -1,11 +1,13 @@
-package com.gabchak.model;
+package com.gabchak.controller.external.model;
 
-import com.gabchak.controller.external.model.OrderDto;
+import com.gabchak.model.Order;
+import com.gabchak.model.Product;
+import com.gabchak.model.User;
 
 import java.time.LocalDate;
 import java.util.Map;
 
-public class Order {
+public class OrderDto {
 
     private Long orderId;
     private User customer;
@@ -13,17 +15,6 @@ public class Order {
     private String orderComment;
     private Double orderAmount;
     private Map<Product, Integer> products;
-
-    public Order() {
-    }
-
-    public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount) {
-        this.orderId = orderId;
-        this.customer = customer;
-        this.orderDate = orderDate;
-        this.orderComment = orderComment;
-        this.orderAmount = orderAmount;
-    }
 
     public Long getOrderId() {
         return orderId;
@@ -81,14 +72,14 @@ public class Order {
         products.merge(product, quantity, (a, b) -> a + b);
     }
 
-    public static Order of(OrderDto orderDto) {
-        Order order = new Order();
-        order.setOrderId(orderDto.getOrderId());
-        order.setCustomer(orderDto.getCustomer());
-        order.setOrderDate(orderDto.getOrderDate());
-        order.setOrderAmount(orderDto.getOrderAmount());
-        order.setOrderComment(orderDto.getOrderComment());
-        order.setProducts(orderDto.getProducts());
-        return order;
+    public static OrderDto of(Order order) {
+        OrderDto orderDto = new OrderDto();
+        orderDto.setOrderId(order.getOrderId());
+        orderDto.setCustomer(order.getCustomer());
+        orderDto.setOrderDate(order.getOrderDate());
+        orderDto.setOrderAmount(order.getOrderAmount());
+        orderDto.setOrderComment(order.getOrderComment());
+        orderDto.setProducts(order.getProducts());
+        return orderDto;
     }
 }
