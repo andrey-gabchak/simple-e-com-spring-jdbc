@@ -18,7 +18,4 @@ public interface OrderDao {
 
     List<Order> findAll();
 
-    Order findOpenOrderByUserId(Long id);
-
-    Order findOpenOrderByUser(User user);
 }

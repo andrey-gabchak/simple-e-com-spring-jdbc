@@ -179,7 +179,7 @@ public class OrderDaoImpl implements OrderDao {
                 ));
 
         if (order != null) {
-            order = getProductAndQuantity(order);
+            getProductAndQuantity(order);
         }
 
         return order;
@@ -198,33 +198,7 @@ public class OrderDaoImpl implements OrderDao {
                 ));
     }
 
-    @Override
-    public Order findOpenOrderByUserId(Long id) {
-        User user = userDao.findById(id);
-        return findOpenOrderByUser(user);
-    }
-
-    @Override
-    public Order findOpenOrderByUser(User user) {
-        Long id = user.getId();
-        Order order = jdbcTemplate.queryForObject(
-                "SELECT ORDER_ID, CUSTOMER_ID, ORDER_DATE, ORDER_AMOUNT, ORDER_COMMENT FROM ORDERS WHERE CUSTOMER_ID = ? AND ORDER_STATUS = FALSE",
-                new Object[]{id}, (rs, rowNum) -> new Order(
-                        rs.getLong("ORDER_ID"),
-                        user,
-                        rs.getDate("ORDER_DATE").toLocalDate(),
-                        rs.getString("ORDER_COMMENT"),
-                        rs.getDouble("ORDER_AMOUNT")
-                ));
-
-        if (order != null) {
-            order = getProductAndQuantity(order);
-        }
-
-        return order;
-    }
-
-    private Order getProductAndQuantity(Order order) {
+    private void getProductAndQuantity(Order order) {
         Map<Product, Integer> products = new HashMap<>();
         Long orderId = order.getOrderId();
 
@@ -235,6 +209,5 @@ public class OrderDaoImpl implements OrderDao {
                 ));
 
         order.setProducts(products);
-        return order;
     }
 }
