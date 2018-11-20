@@ -106,13 +106,17 @@ public class OrderDaoImpl implements OrderDao {
                 ResultSet generatedKeys = orderStatement.getGeneratedKeys();
 
                 if (generatedKeys.next()) {
-                    for (int i = 0; i < order.getProducts().size(); i++) {
+
+                    for (Map.Entry<Product, Integer> entry : order.getProducts().entrySet()) {
+                        Product product = entry.getKey();
+                        Integer quantity = entry.getValue();
+
                         orderToProductStatement = connection.prepareStatement(
                                 "UPDATE ORDER_TO_PRODUCT SET FK_PRODUCT_ID = ?, PRODUCT_QUANTITY = ? WHERE FK_ORDER_ID = ?");
-                        Long id = order.getProducts().get(i).getId();
-                        orderToProductStatement.setLong(1, id);
-                        orderToProductStatement.setInt(2, order.getProducts().get(id));
+                        orderToProductStatement.setLong(1, product.getId());
+                        orderToProductStatement.setInt(2, quantity);
                         orderToProductStatement.setLong(3, order.getOrderId());
+
                         orderToProductStatement.executeUpdate();
                     }
                 }
