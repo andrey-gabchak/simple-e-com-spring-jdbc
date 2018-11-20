@@ -1,14 +1,13 @@
 package com.gabchak.service;
 
-import com.gabchak.model.Product;
-
-import java.util.Map;
+import com.gabchak.model.Cart;
+import com.gabchak.model.User;
 
 public interface CartService {
 
     void addToCart(Long userId, Long productId, Integer quantity);
 
-    Map<Product, Integer> findAllUsersProducts(Long userId);
+    Cart findAllUsersProducts(User user);
 
     void deleteProductById(Long userId, Long productId);
 }
