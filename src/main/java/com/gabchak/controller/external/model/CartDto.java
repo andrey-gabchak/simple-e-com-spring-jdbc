@@ -1,11 +1,13 @@
-package com.gabchak.model;
+package com.gabchak.controller.external.model;
 
-import com.gabchak.controller.external.model.CartDto;
+import com.gabchak.model.Cart;
+import com.gabchak.model.Product;
+import com.gabchak.model.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Cart {
+public class CartDto {
 
     private Map<Product, Integer> products = new HashMap<>();
     private User user;
@@ -39,11 +41,11 @@ public class Cart {
         this.amount = amount;
     }
 
-    public Cart of(CartDto cartDto) {
-        Cart cart = new Cart();
-        cart.setUser(cartDto.getUser());
-        cart.setAmount(cartDto.getAmount());
-        cart.setProducts(cartDto.getProducts());
-        return cart;
+    public CartDto of(Cart cart) {
+        CartDto cartDto = new CartDto();
+        cartDto.setAmount(cart.getAmount());
+        cartDto.setProducts(cart.getProducts());
+        cartDto.setUser(cart.getUser());
+        return cartDto;
     }
 }
