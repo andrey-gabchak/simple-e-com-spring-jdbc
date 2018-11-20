@@ -1,5 +1,7 @@
 package com.gabchak.controller;
 
+import com.gabchak.controller.external.model.CartDto;
+import com.gabchak.model.Cart;
 import com.gabchak.model.Product;
 import com.gabchak.model.User;
 import com.gabchak.service.CartService;
@@ -51,7 +53,9 @@ public class CartController {
         vm.setViewName("product");
 
         if (user != null) {
-            vm.addObject("cart", cartService.findAllUsersProducts(user));
+            Cart cart = cartService.findAllUsersProducts(user);
+            CartDto cartDto = CartDto.of(cart);
+            vm.addObject("cart", cartDto);
         }
 
         return vm;
