@@ -2,6 +2,7 @@ package com.gabchak.service;
 
 import com.gabchak.model.User;
 
+import javax.servlet.http.Cookie;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +25,6 @@ public interface UserService {
     void logout();
 
     User findByToken(String token);
+
+    User findUserByCookies(Cookie[] cookies);
 }

@@ -5,6 +5,7 @@ import com.gabchak.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -72,6 +73,22 @@ public class UserServiceImpl implements UserService {
         String hashedPassword = hashPassword(user.getPassword());
 
         return hashedPassword.equals(userByEmail.getPassword()) ? Optional.of(userByEmail) : Optional.empty();
+    }
+
+    @Override
+    public User findUserByCookies(Cookie[] cookies) {
+
+        String token = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("MATE")) {
+                    token = cookie.getValue();
+                }
+            }
+        }
+
+        return token != null ? findByToken(token) : null;
     }
 
     private String getToken() {
