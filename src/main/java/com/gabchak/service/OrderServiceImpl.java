@@ -19,8 +19,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void create(Order order) {
-        orderDao.create(order);
+    public long create(Order order) {
+        return orderDao.create(order);
     }
 
     @Override
