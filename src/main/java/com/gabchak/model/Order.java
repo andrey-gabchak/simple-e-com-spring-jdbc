@@ -15,15 +15,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(User customer, LocalDate orderDate, String orderComment, Double orderAmount, Map<Product, Integer> products) {
-        this.customer = customer;
-        this.orderDate = orderDate;
-        this.orderComment = orderComment;
-        this.orderAmount = orderAmount;
-        this.products = products;
-    }
-
-    public Order(User customer, LocalDate orderDate, String orderComment, Double orderAmount) {
+    public Order(Long orderId, User customer, LocalDate orderDate, String orderComment, Double orderAmount) {
+        this.orderId = orderId;
         this.customer = customer;
         this.orderDate = orderDate;
         this.orderComment = orderComment;
