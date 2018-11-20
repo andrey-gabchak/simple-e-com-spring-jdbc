@@ -7,6 +7,7 @@ public class Cart {
 
     private Map<Product, Integer> products = new HashMap<>();
     private User user;
+    private Double amount;
 
     public void setProducts(Map<Product, Integer> products) {
         this.products = products;
@@ -26,5 +27,13 @@ public class Cart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 }
