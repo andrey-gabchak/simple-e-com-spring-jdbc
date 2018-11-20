@@ -7,7 +7,8 @@
 <%@ include file="navBar.jsp"%>
 
 <div class="container">
-    <springForm:form action="/cart/confirm" cssClass="form-group" method="post" modelAttribute="order">
+    <%--@elvariable id="cartDto" type="com.gabchak.controller.external.model.CartDto"--%>
+    <springForm:form action="/cart/confirm" cssClass="form-group" method="post" modelAttribute="cartDto">
         <div class="row">
             <div class="col-10">
                 <h4>Products</h4>
@@ -19,16 +20,16 @@
                 <h4>Price</h4>
             </div>
         </div>
-        <springform:forEach items="${order.products}" var="product">
+        <springform:forEach items="${cartDto.products}" var="product">
             <div class="row">
-                <div class="col-10">${product.name}</div>
-                <div class="col-1">${order.productsQuantity['product.id']}
+                <div class="col-10">${cartDto.products['product.name']}</div>
+                <div class="col-1">${cartDto.products['product.id']}
                 </div>
-                <div class="col-1">${product.price}</div>
+                <div class="col-1">${cartDto.products['product.price']}</div>
             </div>
         </springform:forEach>
         <div class="row text-lg-right">
-            <p class="col-1"><b>${order.orderAmount}</b></p>
+            <p class="col-1"><b>${cartDto.amount}</b></p>
         </div>
         <div class="row">
             <div class="col-md-12 text-center">
