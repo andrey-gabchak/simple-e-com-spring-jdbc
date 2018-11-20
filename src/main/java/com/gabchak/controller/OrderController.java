@@ -19,12 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 public class OrderController {
 
     private OrderService orderService;
-    private UserService userService;
 
     @Autowired
-    public OrderController(OrderService orderService, UserService userService) {
+    public OrderController(OrderService orderService) {
         this.orderService = orderService;
-        this.userService = userService;
     }
 
     @PostMapping("/admin/orders/delete_{id}")
@@ -32,41 +30,6 @@ public class OrderController {
         orderService.delete(id);
         vm.setViewName("OrdersList");
         vm.addObject("orders", orderService.findAll());
-        return vm;
-    }
-
-    @PostMapping("/buy_{id}")
-    public ModelAndView addToCart(@PathVariable Long id, HttpServletRequest request, Product product, Integer quantity, ModelAndView vm) {
-
-        User user = findUserByCookies(request);
-        Order order = orderService.findOpenOrderByUser(user);
-
-        if (order == null) {
-            order = new Order();
-            order.setCustomer(user);
-            order.setStatus(false);
-            order.setOrderAmount(product.getPrice());
-            order.increaseQuantity(product.getId(), quantity);
-            orderService.create(order);
-        } else {
-            order.addProduct(product);
-            order.setOrderAmount(order.getOrderAmount() + product.getPrice());
-            order.increaseQuantity(product.getId(), quantity);
-            orderService.update(order);
-        }
-
-        vm.setViewName("product");
-        vm.addObject("order", order);
-        return vm;
-    }
-
-    @GetMapping("/cart")
-    public ModelAndView showCartPage(HttpServletRequest request, ModelAndView vm) {
-        User user = findUserByCookies(request);
-        Order order = orderService.findOpenOrderByUser(user);
-
-        vm.setViewName("cart");
-        vm.addObject("order", order);
         return vm;
     }
 
@@ -106,19 +69,5 @@ public class OrderController {
         return vm;
     }
 
-    private User findUserByCookies(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
 
-        String token = null;
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("MATE")) {
-                    token = cookie.getValue();
-                }
-            }
-        }
-
-        return token != null ? userService.findByToken(token) : null;
-    }
 }
