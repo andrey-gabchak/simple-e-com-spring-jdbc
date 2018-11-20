@@ -31,14 +31,14 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     public Map<Product, Integer> findAllUsersProducts(Long userId) {
-        Map<Product, Integer> quantity = new HashMap<>();
+        Map<Product, Integer> products = new HashMap<>();
 
         jdbcTemplate.query("SELECT FK_PRODUCT_ID, PRODUCT_QUANTITY FROM CARTS WHERE FK_USER_ID = ?",
-                new Object[] {userId}, (rs, rowNum) -> quantity.put(
+                new Object[] {userId}, (rs, rowNum) -> products.put(
                         productDao.findById(rs.getLong(1)),
                         rs.getInt(2)
                 ));
-        return quantity;
+        return products;
     }
 
 
