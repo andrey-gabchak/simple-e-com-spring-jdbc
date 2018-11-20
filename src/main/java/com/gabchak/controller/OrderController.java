@@ -1,19 +1,14 @@
 package com.gabchak.controller;
 
+import com.gabchak.model.Cart;
 import com.gabchak.model.Order;
-import com.gabchak.model.Product;
-import com.gabchak.model.User;
 import com.gabchak.service.OrderService;
-import com.gabchak.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class OrderController {
@@ -30,20 +25,6 @@ public class OrderController {
         orderService.delete(id);
         vm.setViewName("OrdersList");
         vm.addObject("orders", orderService.findAll());
-        return vm;
-    }
-
-    @PostMapping("/cart/confirm")
-    public ModelAndView confirmOrder(Order order, ModelAndView vm) {
-        if (order == null) {
-            vm.setViewName("errorEmptyOrder");
-            return vm;
-        }
-
-        order.setStatus(true);
-        orderService.update(order);
-
-        vm.setViewName("thanksForOrder");
         return vm;
     }
 
@@ -69,5 +50,20 @@ public class OrderController {
         return vm;
     }
 
+    @PostMapping("/cart/confirm")
+    public ModelAndView createOrder(Cart cart, String comment, ModelAndView vm) {
+
+        Order order = new Order();
+        order.setProducts(cart.getProducts());
+        order.setCustomer(cart.getUser());
+        order.setOrderAmount(cart.getAmount());
+        order.setOrderComment(comment);
+
+        Long orderId = orderService.create(order);
+
+        vm.setViewName("thanksForOrder");
+        vm.addObject("orderId", orderId);
+        return vm;
+    }
 
 }
