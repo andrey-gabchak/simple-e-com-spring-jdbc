@@ -3,10 +3,12 @@ package com.gabchak.dao;
 import com.gabchak.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Repository
 public class CartDaoImpl implements CartDao {
 
     private JdbcTemplate jdbcTemplate;
@@ -40,4 +42,10 @@ public class CartDaoImpl implements CartDao {
     }
 
 
+    @Override
+    public void deleteProductById(Long userId, Long productId) {
+        jdbcTemplate.update("DELETE FROM CARTS WHERE FK_USER_ID = ? AND FK_PRODUCT_ID = ?",
+                userId,
+                productId);
+    }
 }
