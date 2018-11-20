@@ -2,7 +2,6 @@ package com.gabchak.dao;
 
 import com.gabchak.model.Order;
 import com.gabchak.model.Product;
-import com.gabchak.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -28,8 +27,8 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void create(Order order) {
-        jdbcTemplate.update(connection -> {
+    public long create(Order order) {
+        return (long) jdbcTemplate.update(connection -> {
             PreparedStatement orderStatement = null;
             PreparedStatement productsStatement;
             try {

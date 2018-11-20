@@ -2,13 +2,12 @@ package com.gabchak.dao;
 
 
 import com.gabchak.model.Order;
-import com.gabchak.model.User;
 
 import java.util.List;
 
 public interface OrderDao {
 
-    void create(Order order);
+    long create(Order order);
 
     void update(Order order);
 
