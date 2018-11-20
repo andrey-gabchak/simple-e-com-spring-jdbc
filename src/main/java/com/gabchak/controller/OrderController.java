@@ -1,5 +1,6 @@
 package com.gabchak.controller;
 
+import com.gabchak.controller.external.model.OrderDto;
 import com.gabchak.model.Cart;
 import com.gabchak.model.Order;
 import com.gabchak.service.OrderService;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -31,21 +35,27 @@ public class OrderController {
     @GetMapping("/admin/orders")
     public ModelAndView showOrders(ModelAndView vm) {
         vm.setViewName("orders");
-        vm.addObject("orders", orderService.findAll());
+        List<Order> allOrders = orderService.findAll();
+        List<OrderDto> allOrdersDto = new ArrayList<>();
+        for (Order order : allOrders) {
+            allOrdersDto.add(OrderDto.of(order));
+        }
+        vm.addObject("orders", allOrdersDto);
         return vm;
     }
 
     @GetMapping("/admin/orders/edit_{id}")
     public ModelAndView showEditOrderPage(@PathVariable Long id, ModelAndView vm) {
         vm.setViewName("orderEdit");
-        vm.addObject("order", orderService.findById(id));
+        Order order = orderService.findById(id);
+        vm.addObject("order", OrderDto.of(order));
         return vm;
     }
 
     @PostMapping("/admin/orders/save_{id}")
-    public ModelAndView saveOrder(@PathVariable Long id, Order order, ModelAndView vm) {
+    public ModelAndView saveOrder(@PathVariable Long id, OrderDto orderDto, ModelAndView vm) {
         vm.setViewName("orders");
-        orderService.update(order);
+        orderService.update(Order.of(orderDto));
         vm.addObject("orders", orderService.findAll());
         return vm;
     }
