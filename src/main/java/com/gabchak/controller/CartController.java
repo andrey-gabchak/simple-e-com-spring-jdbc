@@ -27,13 +27,14 @@ public class CartController {
 
     @PostMapping("/buy")
     public ModelAndView addToCart(HttpServletRequest request, Product product, Integer quantity, ModelAndView vm) {
+        Cookie[] cookies = request.getCookies();
 
-
-        User user = findUserByCookies(request);
+        User user = userService.findUserByCookies(cookies);
         if (user != null) {
             cartService.addToCart(user.getId(), product.getId(), quantity);
+
             vm.setViewName("cart");
-            vm.addObject("cart", cartService.findAllUsersProducts(user.getId()));
+            vm.addObject("cart", cartService.findAllUsersProducts(user));
         } else {
             vm.setViewName("product");
         }
@@ -43,30 +44,16 @@ public class CartController {
 
     @GetMapping("/cart")
     public ModelAndView showCartPage(HttpServletRequest request, ModelAndView vm) {
-        User user = findUserByCookies(request);
+        Cookie[] cookies = request.getCookies();
 
-        vm.setViewName("cart");
+        User user = userService.findUserByCookies(cookies);
+
+        vm.setViewName("product");
 
         if (user != null) {
-            vm.addObject("order", cartService.findAllUsersProducts(user.getId()));
+            vm.addObject("cart", cartService.findAllUsersProducts(user));
         }
 
         return vm;
-    }
-
-    private User findUserByCookies(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-
-        String token = null;
-
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("MATE")) {
-                    token = cookie.getValue();
-                }
-            }
-        }
-
-        return token != null ? userService.findByToken(token) : null;
     }
 }
