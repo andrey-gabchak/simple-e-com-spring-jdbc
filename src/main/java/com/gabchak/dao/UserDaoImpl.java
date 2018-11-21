@@ -62,7 +62,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByToken(String token) {
-        return jdbcTemplate.queryForObject("SELECT EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE TOKEN = ?",
+        return jdbcTemplate.queryForObject("SELECT ID, EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, TOKEN FROM USERS WHERE TOKEN = ?",
                 new Object[] {token}, new BeanPropertyRowMapper<>(User.class));
     }
 
