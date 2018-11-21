@@ -4,6 +4,7 @@
     <title>Login</title>
 </head>
 <body class="text-center">
+<%--@elvariable id="user" type="com.gabchak.model.User"--%>
 <springForm:form class="form-signin" action="/login" method="post" modelAttribute="user">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
