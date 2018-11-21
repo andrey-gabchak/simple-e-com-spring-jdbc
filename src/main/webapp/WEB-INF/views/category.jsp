@@ -10,6 +10,7 @@
     <h1 class="display-4" style="margin-top: 250px">${category.name}</h1>
 
     <div class="row">
+        <%--@elvariable id="category" type="com.gabchak.model.Category"--%>
         <c:forEach var="p" items="${category.products}">
             <div class="col-md-4">
 
