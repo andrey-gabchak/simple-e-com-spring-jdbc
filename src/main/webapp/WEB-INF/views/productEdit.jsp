@@ -1,3 +1,4 @@
+<%--@elvariable id="category" type="com.gabchak.model.Category"--%>
 <%@include file="header.jsp" %>
 
 <head>
@@ -6,6 +7,7 @@
 <body>
 <%@ include file="navBar.jsp" %>
 <div class="container">
+    <%--@elvariable id="product" type="com.gabchak.model.Product"--%>
     <springForm:form class="form-group" action="/admin/products/save_${product.id}" method="post" modelAttribute="product">
         <div class="row justify-content-center">
             <h1 class="h3 mb-3 font-weight-normal">Edit ${product.name}</h1>
