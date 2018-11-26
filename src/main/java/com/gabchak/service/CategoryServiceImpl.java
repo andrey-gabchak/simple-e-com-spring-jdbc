@@ -26,4 +26,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findById(Long id) {
         return categoryDao.findById(id);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        categoryDao.deleteById(id);
+    }
 }

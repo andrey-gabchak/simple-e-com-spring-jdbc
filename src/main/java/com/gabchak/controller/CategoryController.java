@@ -38,4 +38,12 @@ public class CategoryController {
         vm.addObject("category", category);
         return vm;
     }
+
+    @PostMapping("/admin/categories/{categoryId}_delete")
+    public ModelAndView deleteCategoryById(@PathVariable Long categoryId, ModelAndView vm) {
+        categoryService.deleteById(categoryId);
+        vm.setViewName("categoryAdminList");
+        vm.addObject("categories", categoryService.findAll());
+        return vm;
+    }
 }

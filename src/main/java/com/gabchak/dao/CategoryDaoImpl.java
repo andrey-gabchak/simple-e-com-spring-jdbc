@@ -1,6 +1,7 @@
 package com.gabchak.dao;
 
 import com.gabchak.model.Category;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,5 +32,12 @@ public class CategoryDaoImpl implements CategoryDao {
                 .createQuery("from category c join fetch c.productList where c.id =:id", Category.class)
                 .setParameter("ID", id)
                 .uniqueResult();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.delete(currentSession.load(Category.class, id));
+        currentSession.flush();
     }
 }
